@@ -22,11 +22,20 @@ import ProfilePage from "@/pages/ProfilePage";
 import SearchPage from "@/pages/SearchPage";
 import EmailVerification from "@/pages/EmailVerification";
 import ViewProfilePage from "@/pages/ViewProfilePage";
+import LandingPage from "@/pages/LandingPage";
 
 export const routes = createBrowserRouter([
-  // App routes
+  // Public Landing Page
   {
     path: "/",
+    element: (
+      <AuthWrapper requireAuth={false}>
+        <LandingPage />
+      </AuthWrapper>
+    ),
+  },
+  // App routes (pathless layout)
+  {
     element: (
       <AuthWrapper requireAuth={true}>
         <AppLayout />
@@ -34,7 +43,6 @@ export const routes = createBrowserRouter([
     ),
     errorElement: <RouteErrorBoundary />,
     children: [
-      { index: true, element: <Navigate to="/home" replace /> },
       { path: "home", element: <HomePage /> },
       {
         path: "movie/:id",

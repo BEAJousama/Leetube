@@ -227,3 +227,21 @@ video[data-no-seek="true"]::-webkit-media-controls-seek-back-button,
 video[data-no-seek="true"]::-webkit-media-controls-seek-forward-button {
   display: none !important;
 }
+
+/* Auto-scrolling slider */
+@keyframes scroll-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 10px)); /* Assuming gap-5 (20px) / 2 = 10px */
+  }
+}
+
+.animate-scroll-x {
+  animation: scroll-x 40s linear infinite;
+}
+
+.pause-on-hover:hover .animate-scroll-x {
+  animation-play-state: paused;
+}

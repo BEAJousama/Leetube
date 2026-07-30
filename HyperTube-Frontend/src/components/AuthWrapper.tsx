@@ -32,7 +32,7 @@ export const AuthWrapper = ({
         navigate(AppRoutes.LOGIN, { replace: true });
       } else if (!requireAuth && isAuthenticated) {
         // User is authenticated but trying to access auth pages
-        navigate("/", { replace: true });
+        navigate("/home", { replace: true });
       }
     }
   }, [isAuthenticated, isLoading, requireAuth, navigate, location.pathname]);

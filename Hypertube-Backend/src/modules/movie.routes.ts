@@ -257,7 +257,7 @@ router.get('/top-rated',
  *               error: "Failed to fetch trending movies"
  */
 router.get('/trending', 
-  authenticate,
+  optionalAuthenticate,
   validateQuery(trendingMoviesSchema),
   asyncHandler(movieController.getExternalTrendingMovies.bind(movieController))
 );

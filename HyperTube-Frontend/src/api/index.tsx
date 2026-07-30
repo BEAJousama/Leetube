@@ -7,7 +7,11 @@ const queryClient = new QueryClient({
     queries: {
       retry: 1,
 
-      throwOnError(_error, _query) {
+      throwOnError(error: any) {
+        // Don't throw auth errors to ErrorBoundary to allow smooth redirects
+        if (error?.response?.status === 401 || error?.response?.status === 403) {
+          return false;
+        }
         return true;
       },
     },

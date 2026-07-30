@@ -120,20 +120,9 @@ client.interceptors.response.use(
         setAccessToken(null);
 
         // Update auth store to clear authentication state
+        // This will trigger AuthWrapper to redirect cleanly using React Router
         const { useAuthStore } = await import("../stores/AuthStore");
         await useAuthStore.getState().logout();
-
-        // console.error("Token refresh failed:", refreshError); // Removed for lint compliance
-
-        // Only redirect if we're not already on an auth page
-        const currentPath = window.location.pathname;
-        if (
-          !currentPath.includes("/auth/") &&
-          !currentPath.includes("/login") &&
-          !currentPath.includes("/register")
-        ) {
-          window.location.href = "/auth/login";
-        }
 
         return Promise.reject(refreshError);
       } finally {

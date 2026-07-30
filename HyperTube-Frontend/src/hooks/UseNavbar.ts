@@ -59,7 +59,7 @@ const UseNavbar = () => {
       message: t("Logout.message"),
       onConfirm: async () => {
         await logout();
-        navigate(AppRoutes.LOGIN);
+        navigate("/");
       },
     });
   };
