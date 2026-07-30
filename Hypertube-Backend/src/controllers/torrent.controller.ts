@@ -97,21 +97,7 @@ export class TorrentController {
       await this.movieService.markMovieAsDownloaded(movieId);
     }
 
-    // Download all subtitles asynchronously so it doesn't block stream
-    const supportedLanguages = ["en", "es", "fr", "de", "ar"];
-    logger.info(`Starting subtitle download for movie ${movieId} in ${supportedLanguages.length} languages`);
-
-    (async () => {
-      try {
-        for (const lang of supportedLanguages) {
-          logger.info(`Downloading subtitles for language: ${lang}`);
-          await this.subtitlesService.fetchAndSaveSubtitles(movieId, lang as "en" | "es" | "fr" | "de" | "ar");
-        }
-        logger.info(`All subtitles downloaded successfully for movie ${movieId}`);
-      } catch (error) {
-        logger.error(`Error downloading subtitles for movie ${movieId}:`, error);
-      }
-    })();
+    // Subtitles are now fetched on-demand via the /subtitles proxy endpoint.
 
     // Wait for initial buffering (2MB) with timeout
     const startTime = Date.now();
@@ -506,52 +492,49 @@ export class TorrentController {
     }
   }
 
-  /** Check subtitle existence */
-  async checkSubtitles(req: Request, res: Response) {
-    const { tmdbId, language = "en" } = req.query as { tmdbId: string; language: string };
+  /** On-demand subtitle proxy */
+  async getSubtitle(req: Request, res: Response) {
+    const { movieId, language } = req.params;
 
-    if (!tmdbId) {
-      return res.status(400).json({ message: "TMDB ID is required" });
+    if (!movieId || !language) {
+      return res.status(400).json({ message: "Movie ID and language are required" });
     }
 
     try {
-      const existingPath = await this.subtitlesService.getSavedSubtitlePath(
-        tmdbId,
+      // 1. Check if we already have it downloaded
+      let subtitlePath = await this.subtitlesService.getSavedSubtitlePath(
+        movieId,
         language as "en" | "es" | "fr" | "de" | "ar"
       );
 
-      if (existingPath) {
-        return res.status(200).json({
-          available: true,
-          downloaded: true,
-          subtitlePath: existingPath,
-          tmdbId,
-          language,
-        });
-      }
-      else {
-        return res.status(200).json({
-          available: false,
-          downloaded: false,
-          tmdbId,
-          language,
-        });
+      // 2. If not downloaded, fetch it right now!
+      if (!subtitlePath) {
+        logger.info(`Subtitle not found locally. Fetching on-demand for ${movieId} (${language})`);
+        const downloaded = await this.subtitlesService.fetchAndSaveSubtitles(
+          movieId,
+          language as "en" | "es" | "fr" | "de" | "ar"
+        );
+        
+        if (downloaded) {
+          subtitlePath = await this.subtitlesService.getSavedSubtitlePath(
+            movieId,
+            language as "en" | "es" | "fr" | "de" | "ar"
+          );
+        }
       }
 
-      // const hasSubtitle = await this.subtitlesService.hasSubtitle(
-      //   tmdbId,
-      //   language as "en" | "es" | "fr" | "de" | "ar"
-      // );
-
-      // return res.status(200).json({
-      //   available: hasSubtitle,
-      //   downloaded: false,
-      //   tmdbId,
-      //   language,
-      // });
+      // 3. Send the file if we have it
+      if (subtitlePath && fs.existsSync(subtitlePath)) {
+        res.setHeader("Content-Type", "text/vtt");
+        // Use read stream to pipe the file
+        const stream = fs.createReadStream(subtitlePath);
+        stream.pipe(res);
+      } else {
+        res.status(404).send("Subtitle not found");
+      }
     } catch (error) {
-      logger.error("Error checking subtitles:", error);
-      return res.status(500).json({ message: "Error checking subtitle availability" });
+      logger.error("Error in on-demand subtitle proxy:", error);
+      return res.status(500).send("Error fetching subtitle");
     }
   }
 }

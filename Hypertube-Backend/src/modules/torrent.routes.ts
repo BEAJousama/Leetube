@@ -212,54 +212,31 @@ router.post('/downloadMovie',
 
 /**
  * @swagger
- * /api/torrent/check-subtitles:
+ * /api/torrent/subtitles/{movieId}/{language}.vtt:
  *   get:
- *     summary: Check subtitle availability for a movie
+ *     summary: Get subtitle file on demand (downloads and converts if missing)
  *     tags: [Torrent]
  *     parameters:
- *       - in: query
- *         name: tmdbId
+ *       - in: path
+ *         name: movieId
  *         required: true
  *         schema:
  *           type: string
  *         description: TMDB movie ID
- *       - in: query
+ *       - in: path
  *         name: language
+ *         required: true
  *         schema:
  *           type: string
- *           default: en
- *           enum: [en, es, fr, de, ar]
- *         description: Subtitle language code
+ *         description: Language code (en, es, fr, de, ar)
  *     responses:
  *       200:
- *         description: Subtitle availability status
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 available:
- *                   type: boolean
- *                   description: Whether subtitles are available
- *                 downloaded:
- *                   type: boolean
- *                   description: Whether subtitles are already downloaded
- *                 subtitlePath:
- *                   type: string
- *                   description: Path to subtitle file (if downloaded)
- *                 tmdbId:
- *                   type: string
- *                   description: TMDB movie ID
- *                 language:
- *                   type: string
- *                   description: Language code
- *       400:
- *         description: Missing TMDB ID
- *       500:
- *         description: Error checking subtitle availability
+ *         description: Subtitle file in VTT format
+ *       404:
+ *         description: Subtitle not found
  */
-router.get('/check-subtitles',
-  torrentController.checkSubtitles.bind(torrentController)
+router.get('/subtitles/:movieId/:language.vtt',
+  torrentController.getSubtitle.bind(torrentController)
 );
 
 

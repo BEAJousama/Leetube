@@ -116,7 +116,7 @@ export function FortyTwoOAuthCallback(target: any, propertyKey: string, descript
       res.cookie('refreshToken', result.refreshToken, {
         httpOnly: true,
         secure: config.nodeEnv === 'production',
-        sameSite: 'lax',
+        sameSite: (config.nodeEnv === 'production' ? 'none' : 'lax') as 'none' | 'lax',
         maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days (refresh token)
       });
 

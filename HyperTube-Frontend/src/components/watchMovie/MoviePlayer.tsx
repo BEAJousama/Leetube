@@ -185,14 +185,6 @@ export function MoviePlayer({
   const { videoRef, isPlaying, setIsPlaying, handleCenterPlay } =
     useVideoPlayer();
 
-  const {
-    subtitlesAvailable,
-    availableSubtitleLangs,
-    defaultSubtitleLang,
-    subtitlesLoading,
-    subtitlesDownloaded,
-  } = useSubtitles(movieId, user?.preferredLanguage || "en");
-
   if (loading) {
     return (
       <div
@@ -259,33 +251,17 @@ export function MoviePlayer({
             autoPlay={false}
           >
             {movieId &&
-              subtitlesAvailable &&
-              availableSubtitleLangs.map((lang) => (
+              ["en", "es", "fr", "de", "ar"].map((lang) => (
                 <track
                   key={lang}
                   kind="subtitles"
-                  src={`${API_BASE_URL}/downloads/${movieId}/${movieId}_${lang}.vtt`}
+                  src={`${API_BASE_URL}/api/torrent/subtitles/${movieId}/${lang}.vtt`}
                   srcLang={lang}
                   label={getLanguageLabel(lang)}
-                  default={lang === defaultSubtitleLang}
+                  default={lang === (user?.preferredLanguage || "en")}
                 />
               ))}
           </video>
-          {subtitlesLoading && (
-            <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-2 rounded-lg text-sm flex items-center gap-2">
-              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-              {t("MoviePage.downloadingSubtitles", "Downloading subtitles...")}
-            </div>
-          )}
-
-          {subtitlesDownloaded && !subtitlesLoading && (
-            <div className="absolute top-4 right-4 bg-green-600/80 text-white px-3 py-2 rounded-lg text-sm flex items-center gap-2 animate-fade-in">
-              <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center">
-                <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-              </div>
-              {t("MoviePage.subtitlesReady", "Subtitles ready!")}
-            </div>
-          )}
 
           {!isPlaying && (
             <button

@@ -113,11 +113,10 @@ export function GoogleOAuthCallback(target: any, propertyKey: string, descriptor
       const result = await googleOAuthService.exchangeCodeForTokens(code, deviceInfo);
       
       // Set tokens in HTTP-only cookies
-
       res.cookie('refreshToken', result.refreshToken, {
         httpOnly: true,
         secure: config.nodeEnv === 'production',
-        sameSite: 'lax',
+        sameSite: (config.nodeEnv === 'production' ? 'none' : 'lax') as 'none' | 'lax',
         maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days (refresh token)
       });
 

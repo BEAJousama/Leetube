@@ -38,7 +38,7 @@ function HeroSection(props: {
       title: movie.title,
       duration: movie.runtime
         ? `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m`
-        : "N/A",
+        : undefined,
       genres: movie.genres || [],
       trailerUrl: movie.trailerUrl || null,
     }));
