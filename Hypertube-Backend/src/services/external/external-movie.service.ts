@@ -3,6 +3,7 @@ import { TMDBService, ExternalMovieData } from './tmdb.service';
 import { YTSService, MagnetLink } from './yts.service';
 import { prisma } from '@/shared/database/connection';
 import { logger } from '@/shared/utils/logger';
+import { TTLCache } from '@/shared/utils/cache';
 
 export interface MovieSearchOptions {
   title?: string;
@@ -49,6 +50,7 @@ export interface EnrichedMovieData extends ExternalMovieData {
 export class ExternalMovieService implements IService {
   private _tmdbService?: TMDBService;
   private _ytsService?: YTSService;
+  private readonly movieCache = new TTLCache<EnrichedMovieData>(3600, 500); // 1 hour TTL, max 500 items
 
   constructor() {
     // ExternalMovieService initialized
@@ -184,27 +186,37 @@ export class ExternalMovieService implements IService {
    * Get enriched movie data combining TMDB and YTS (torrents + trailers)
    */
   async getEnrichedMovieData(tmdbId: number): Promise<EnrichedMovieData> {
+    const cacheKey = `movie_${tmdbId}`;
+    const cachedData = this.movieCache.get(cacheKey);
+    
+    if (cachedData) {
+      logger.debug(`[Cache Hit] Movie details for TMDB ID: ${tmdbId}`);
+      return cachedData;
+    }
+
     try {
       const movieData = await this.getMovieDetails(tmdbId);
 
       if (!movieData) {
         throw new Error('Movie not found');
       }
+      
+      let finalData: EnrichedMovieData = movieData;
+      
       if (movieData.imdbId) {
         try {
           const streamingData = await this.ytsService.getStreamingData(movieData.imdbId);
-          
-          return {
+          finalData = {
             ...movieData,
             sources: streamingData
           };
         } catch (ytsError) {
           logger.warn('Failed to get YTS streaming data:', ytsError);
-          return movieData;
         }
       }
 
-      return movieData;
+      this.movieCache.set(cacheKey, finalData);
+      return finalData;
     } catch (error) {
       logger.error('Get enriched movie data error:', error);
       throw new Error('Failed to fetch enriched movie data');
