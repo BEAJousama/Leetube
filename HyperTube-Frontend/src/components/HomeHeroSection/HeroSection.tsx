@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 function HeroSection(props: {
   currentSlide: number;
   setCurrentSlide: (i: number) => void;
-  onTrailerPlay: (trailerUrl: string | null) => void;
+  onTrailerPlay: (trailerUrl: string | null, movieId: string) => void;
 }) {
   const { t } = useTranslation();
   const { currentSlide, setCurrentSlide } = props;
@@ -133,7 +133,7 @@ function HeroSection(props: {
                 duration={
                   trendingLoading ? "..." : slides[currentSlide]?.duration
                 }
-                onPlay={() => props.onTrailerPlay(slides[currentSlide]?.trailerUrl || null)}
+                onPlay={() => props.onTrailerPlay(slides[currentSlide]?.trailerUrl || null, slides[currentSlide]?.id?.toString() || "")}
               />
               <HeartButton
                 onClick={toggleFavorite}

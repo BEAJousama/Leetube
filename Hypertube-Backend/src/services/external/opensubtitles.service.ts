@@ -5,13 +5,14 @@ import { prisma } from '@/shared/database/connection';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { logger } from "@/shared/utils/logger";
+import { getDownloadsPath } from "@/shared/utils/paths";
 
 @Service('OpenSubtitlesService')
 export class OpenSubtitlesService implements IService {
   private readonly httpClient: AxiosInstance;
   private readonly baseUrl = 'https://api.opensubtitles.com/api/v1';
   private readonly apiKey = config.apis.opensubtitles.apiKey;
-  private readonly downloadPath = path.join(process.cwd(), 'downloads');
+  private readonly downloadPath = getDownloadsPath();
 
   constructor() {    
     if (!this.apiKey) {

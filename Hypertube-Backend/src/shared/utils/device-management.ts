@@ -18,18 +18,18 @@ export const parseDeviceInfo = (userAgent: string): string =>{
 export const extractDeviceName = (deviceInfo: string): string => {
     // Extract OS
     let os = '';
-    if (deviceInfo.includes('Macintosh') || deviceInfo.includes('Mac OS X')) {
-      os = 'macOS';
-    } else if (deviceInfo.includes('Windows')) {
-      os = 'Windows';
-    } else if (deviceInfo.includes('Linux')) {
-      os = 'Linux';
-    } else if (deviceInfo.includes('iPhone')) {
+    if (deviceInfo.includes('iPhone')) {
       os = 'iOS';
     } else if (deviceInfo.includes('iPad')) {
       os = 'iPadOS';
     } else if (deviceInfo.includes('Android')) {
       os = 'Android';
+    } else if (deviceInfo.includes('Macintosh') || deviceInfo.includes('Mac OS X')) {
+      os = 'macOS';
+    } else if (deviceInfo.includes('Windows')) {
+      os = 'Windows';
+    } else if (deviceInfo.includes('Linux')) {
+      os = 'Linux';
     }
     
     // Extract Browser
@@ -87,23 +87,28 @@ export const extractDeviceInfo = async (req: Request): Promise<LoginDeviceInfo> 
         };
       }
 
-      const geoRes = await axios.get(`https://ipapi.co/${cleanIp}/json/`);
-      if (geoRes.status === 200) {
-        const location = geoRes.data;
-        return {
-          userAgent: userAgent,
-          ipAddress: cleanIp,
-          deviceInfo: deviceName,
-          location: `${location.city || 'Unknown City'}, ${location.region || ''}, ${location.country_name || ''}`
-        };
-      } else {
-        return {
-          userAgent: userAgent,
-          ipAddress: cleanIp,
-          deviceInfo: deviceName,
-          location: 'Unknown Location'
-        };
+      let locationStr = 'Unknown Location';
+      try {
+        const geoRes = await axios.get(`http://ip-api.com/json/${cleanIp}`);
+        if (geoRes.data && geoRes.data.status === 'success') {
+          locationStr = `${geoRes.data.city || 'Unknown City'}, ${geoRes.data.regionName || ''}, ${geoRes.data.country || ''}`.replace(/,\s*,/g, ',');
+        } else {
+          // Fallback to ipwho.is
+          const fallbackRes = await axios.get(`https://ipwho.is/${cleanIp}`);
+          if (fallbackRes.data && fallbackRes.data.success) {
+            locationStr = `${fallbackRes.data.city || 'Unknown City'}, ${fallbackRes.data.region || ''}, ${fallbackRes.data.country || ''}`.replace(/,\s*,/g, ',');
+          }
+        }
+      } catch (apiError) {
+        // Just keep 'Unknown Location' on API failure
       }
+
+      return {
+        userAgent: userAgent,
+        ipAddress: cleanIp,
+        deviceInfo: deviceName,
+        location: locationStr
+      };
     } catch (error) {
       return {
         userAgent: userAgent,

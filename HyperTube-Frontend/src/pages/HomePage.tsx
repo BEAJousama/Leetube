@@ -12,6 +12,7 @@ import { useOverlayStore } from "@/stores/OverlayStore";
 import { useAuthStore } from "@/stores/AuthStore";
 import { SORT_OPTIONS } from "@/types/constants/SearchFilters";
 import { CheckCircle, XCircle, AlertCircle } from "lucide-react";
+import { MoviesAPI } from "@/api/MoviesApi";
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -179,9 +180,24 @@ const HomePage = () => {
       <HeroSection
         currentSlide={currentSlide}
         setCurrentSlide={setCurrentSlide}
-        onTrailerPlay={(trailerUrl) =>
-          openTrailer(trailerUrl)
-        }
+        onTrailerPlay={async (trailerUrl, movieId) => {
+          if (trailerUrl) {
+            openTrailer(trailerUrl);
+          } else if (movieId) {
+            try {
+              const movie = await MoviesAPI.fetchMovieById(movieId);
+              if (movie && movie.trailerUrl) {
+                openTrailer(movie.trailerUrl);
+              } else {
+                openTrailer(null);
+              }
+            } catch (e) {
+              openTrailer(null);
+            }
+          } else {
+            openTrailer(null);
+          }
+        }}
       />
       <CategoryNav
         categories={MovieCategories}

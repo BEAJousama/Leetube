@@ -9,6 +9,7 @@ import path from 'path';
 import { config } from './config/environment';
 import { logger } from './shared/utils/logger';
 import { MemoryMonitor } from './shared/utils/memory-monitor';
+import { getDownloadsPath, getUploadsPath } from './shared/utils/paths';
 
 // Import services first and initialize them
 import { initializeServices } from './services';
@@ -127,8 +128,8 @@ class App {
     this.app.use(loggerMiddleware);
 
     // Static files - serve from shared data directory
-    this.app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
-    this.app.use('/downloads', express.static(path.join(process.cwd(), 'downloads')));
+    this.app.use('/uploads', express.static(getUploadsPath()));
+    this.app.use('/downloads', express.static(getDownloadsPath()));
   }
 
   private initializeRoutes(): void {

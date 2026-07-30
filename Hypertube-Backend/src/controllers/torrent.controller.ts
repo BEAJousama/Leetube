@@ -9,9 +9,9 @@ import { OpenSubtitlesService } from "@/services/external/opensubtitles.service"
 import torrentStream from "torrent-stream";
 import { logger } from "@/shared/utils/logger";
 import { spawn } from "child_process";
+import { getDownloadsPath } from "@/shared/utils/paths";
 
 const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
-const DOWNLOADS_PATH = path.resolve(process.cwd(), "downloads");
 
 type EngineMetadata = {
   fileSize: number;
@@ -38,8 +38,7 @@ export class TorrentController {
       return res.status(400).json({ error: "Missing movieId, magnet link or userId" });
     }
 
-    const isProd = process.env.NODE_ENV === "production";
-    const basePath = isProd ? path.join(os.tmpdir(), "leetube-downloads") : DOWNLOADS_PATH;
+    const basePath = getDownloadsPath();
     const moviePath = path.join(basePath, movieId);
     if (!fs.existsSync(moviePath)) {
       fs.mkdirSync(moviePath, { recursive: true });
@@ -486,8 +485,7 @@ export class TorrentController {
       delete engines[movieId];
       logger.info(`Torrent engine for ${movieId} successfully stopped.`);
 
-      const isProd = process.env.NODE_ENV === "production";
-      const basePath = isProd ? path.join(os.tmpdir(), "leetube-downloads") : DOWNLOADS_PATH;
+      const basePath = getDownloadsPath();
       const moviePath = path.join(basePath, movieId);
 
       if (fs.existsSync(moviePath)) {
