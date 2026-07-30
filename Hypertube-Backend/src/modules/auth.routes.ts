@@ -579,6 +579,22 @@ router.get('/42/callback',
 
 /**
  * @swagger
+ * /api/auth/oauth-data:
+ *   get:
+ *     summary: Get OAuth data from HTTP-only cookies
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: OAuth data retrieved successfully
+ *       404:
+ *         description: OAuth data not found
+ */
+router.get('/oauth-data',
+  asyncHandler(authController.getOAuthData.bind(authController))
+);
+
+/**
+ * @swagger
  * /api/auth/devices:
  *  get:
  *     summary: Get user's active devices

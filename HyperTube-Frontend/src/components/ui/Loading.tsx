@@ -17,7 +17,7 @@ export const Loading = ({ className, ...rest }: LoadingProps) => {
       )}
     >
       <DotLottieReact
-        src="../../public/animation.json"
+        src="/animation.json"
         loop
         style={{ width: "200px", height: "200px" }}
         autoplay
