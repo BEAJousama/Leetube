@@ -230,6 +230,7 @@
   "NavBar": {
     "settings": "Configuración",
     "profile": "Perfil",
+    "logout": "Cerrar sesión",
     "searchBy": "Buscar por",
     "searchForMovies": "Buscar películas...",
     "language": "Idioma",

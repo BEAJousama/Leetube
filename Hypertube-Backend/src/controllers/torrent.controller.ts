@@ -205,14 +205,31 @@ export class TorrentController {
     let end;
 
     if (rangeHeader) {
-      const matches = rangeHeader.match(/bytes=(\d*)-(\d*)/);
-      if (!matches) return res.status(400).json({ error: "Invalid Range header" });
-
-      const startParsed = parseInt(matches[1]);
-
+      const parts = rangeHeader.replace(/bytes=/, "").split("-");
+      const startParsed = parseInt(parts[0], 10);
+      const endParsed = parts[1] ? parseInt(parts[1], 10) : undefined;
+      
       if (!isNaN(startParsed)) start = startParsed;
+      
+      if (endParsed !== undefined && !isNaN(endParsed)) {
+        end = endParsed;
+      } else {
+        // Fallback to chunk size if no end specified
+        end = start + CHUNK_SIZE;
+      }
+    } else {
+      end = fileSize - 1;
     }
-    end = Math.min(start + CHUNK_SIZE, fileSize - 1)
+    
+    // Ensure end doesn't exceed file size
+    end = Math.min(end, fileSize - 1);
+    
+    // If range is completely invalid
+    if (start >= fileSize) {
+      res.status(416).json({ error: "Requested range not satisfiable" });
+      return;
+    }
+
     const chunkSize = end - start + 1;
 
     const isDownload = req.query.download === "true";

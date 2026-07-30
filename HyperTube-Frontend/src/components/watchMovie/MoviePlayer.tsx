@@ -249,6 +249,7 @@ export function MoviePlayer({
             onPause={() => setIsPlaying(false)}
             onEnded={() => setIsPlaying(false)}
             autoPlay={false}
+            playsInline
           >
             {movieId &&
               ["en", "es", "fr", "de", "ar"].map((lang) => (

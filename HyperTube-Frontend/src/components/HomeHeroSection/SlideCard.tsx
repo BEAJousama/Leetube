@@ -50,8 +50,8 @@ function SlideCard({ slide, rel, isLoading = false }: Props) {
         />
       )}
       {/* Gradient overlays for depth */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-30" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent z-30" />
     </div>
   );
 }

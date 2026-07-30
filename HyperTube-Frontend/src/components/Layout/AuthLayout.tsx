@@ -67,7 +67,7 @@ const AuthLayout = () => {
         </Link>
       </div>
 
-      <div className="bg-background-100/60 backdrop-blur-xl border border-white/[0.08] rounded-3xl p-6 sm:p-10 shadow-2xl relative z-10 w-full max-w-xs sm:max-w-lg mt-10">
+      <div className="bg-background-100/60 backdrop-blur-xl border border-white/[0.08] rounded-3xl p-6 sm:p-10 shadow-2xl relative z-10 w-[92%] sm:w-full max-w-md sm:max-w-lg mt-10">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-100/10 to-transparent pointer-events-none rounded-3xl" />
         <div className="relative z-10">
           <NavigationTabs />

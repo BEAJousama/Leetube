@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, LogOut } from "lucide-react";
 import useNavbar from "@/hooks/UseNavbar";
 import { useTranslation } from "react-i18next";
 
@@ -12,6 +12,7 @@ export default function ProfileMenu() {
     toggleProfile: onToggle,
     goToProfile: onGoProfile,
     goToSettings: onGoSettings,
+    onLogout,
   } = useNavbar();
   const { t } = useTranslation();
 
@@ -66,6 +67,18 @@ export default function ProfileMenu() {
                 onClick={onGoSettings}
               >
                 {t("NavBar.settings")}
+              </button>
+            </li>
+            <li>
+              <hr className="border-white/10 my-1 mx-2" />
+            </li>
+            <li>
+              <button
+                className="w-full flex items-center gap-2 text-left px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300"
+                onClick={onLogout}
+              >
+                <LogOut className="w-4 h-4" />
+                {t("NavBar.logout") || "Logout"}
               </button>
             </li>
           </ul>

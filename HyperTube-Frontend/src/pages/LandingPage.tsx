@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Play, Globe, Film, Star, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Footer from "@/components/Layout/Footer";
 import { MoviesAPI } from "@/api/MoviesApi";
 import MovieCard from "@/components/MovieCard";
 import type { Movie } from "@/types/Movie";
@@ -336,10 +335,7 @@ export default function LandingPage() {
         </Link>
       </motion.section>
 
-      {/* 7. Footer */}
-      <div className="bg-background-100/80 backdrop-blur-md relative z-30">
-        <Footer />
-      </div>
+      {/* Footer was removed */}
     </div>
   );
 }

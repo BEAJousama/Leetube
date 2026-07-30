@@ -18,12 +18,12 @@ const CastSection = ({ cast, loading = false }: CastSectionProps) => {
           {[...Array(5)].map((_, i) => (
             <div
               key={i}
-              className="group relative flex flex-row gap-2 bg-white/10 rounded-lg p-2 w-[135px] sm:w-[160px] items-center flex-shrink-0"
+              className="group relative flex flex-row gap-3 bg-white/10 rounded-lg p-2 w-[160px] sm:w-[200px] items-center flex-shrink-0"
             >
-              <div className="w-10 h-10 rounded-full bg-white/20 mb-2" />
-              <div className="flex flex-col items-start gap-1">
-                <div className="w-16 h-4 bg-white/20 rounded" />
-                <div className="w-12 h-3 bg-white/20 rounded" />
+              <div className="w-10 h-10 rounded-full bg-white/20 flex-shrink-0" />
+              <div className="flex flex-col items-start gap-1.5 flex-1 min-w-0">
+                <div className="w-full h-4 bg-white/20 rounded" />
+                <div className="w-3/4 h-3 bg-white/20 rounded" />
               </div>
             </div>
           ))}
@@ -51,19 +51,19 @@ const CastSection = ({ cast, loading = false }: CastSectionProps) => {
             <div
               onClick={() => searchActorMovies(actor.name)}
               key={index}
-              className="group relative flex flex-row gap-2 bg-white/5 rounded-lg p-2 w-[135px] sm:w-[160px] text-center items-center text-nowrap text-ellipsis overflow-hidden flex-shrink-0 shadow-md shadow-black/20 cursor-pointer hover:bg-white/10 hover:scale-102 transition"
+              className="group relative flex flex-row gap-3 bg-white/5 rounded-lg p-2 w-[160px] sm:w-[200px] items-center flex-shrink-0 shadow-md shadow-black/20 cursor-pointer hover:bg-white/10 hover:scale-[1.02] transition-all"
             >
               <img
                 src={actor.image ? actor.image : avatarUrl}
                 alt={actor.name}
                 loading="lazy"
-                className="w-10 h-10 rounded-full object-cover mb-2 ring-0 ring-secondary-100/90"
+                className="w-10 h-10 rounded-full object-cover flex-shrink-0 ring-0 group-hover:ring-2 ring-primary-100/50 transition-all"
               />
-              <div className="flex flex-col items-start">
-                <p className="text-white text-sm line-clamp-1 overflow-hidden text-ellipsis">
+              <div className="flex flex-col items-start flex-1 min-w-0">
+                <p className="text-white text-sm font-medium truncate w-full text-left">
                   {actor.name}
                 </p>
-                <p className="text-primary-100/70 text-sm line-clamp-1 overflow-hidden text-ellipsis">
+                <p className="text-primary-100/70 text-xs truncate w-full text-left mt-0.5">
                   {actor.character}
                 </p>
               </div>

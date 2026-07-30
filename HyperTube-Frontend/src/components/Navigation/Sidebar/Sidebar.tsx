@@ -42,16 +42,27 @@ const Sidebar = () => {
         </span>
         <span className="text-white/80 text-2xl font-semibold">LeeTube</span>
       </div>
-      <div className="flex flex-col justify-between h-full overflow-auto">
+      <div className="flex flex-col flex-1 h-full overflow-y-auto overflow-x-hidden">
         <SidebarNavLinks
           navigationItems={navigationItems}
           closeSidebar={closeSidebar}
         />
-        <SidebarSettingsLinks
-          settingsItems={settingsItems}
-          closeSidebar={closeSidebar}
-        />
-        {/* <SidebarContinueWatching /> */}
+        
+        <div className="mt-auto pt-6 flex flex-col gap-4">
+          <SidebarSettingsLinks
+            settingsItems={settingsItems}
+            closeSidebar={closeSidebar}
+          />
+          
+          {/* Academic Disclaimer */}
+          <div className="mx-2 mt-4 p-3 rounded-xl bg-white/[0.03] border border-white/10 text-[11px] sm:text-xs text-white/50 text-center leading-relaxed shadow-sm">
+            <span className="block font-semibold text-white/70 mb-1">1337 / 42 Network</span>
+            Academic Project
+            <div className="mt-1.5 pt-1.5 border-t border-white/5 text-[10px] text-white/40">
+              Not for commercial use.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

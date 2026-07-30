@@ -230,6 +230,7 @@
   "NavBar": {
     "settings": "Settings",
     "profile": "Profile",
+    "logout": "Logout",
     "searchBy": "Search by",
     "searchForMovies": "Search for movies...",
     "language": "Language",

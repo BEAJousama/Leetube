@@ -226,6 +226,7 @@
   "NavBar": {
     "settings": "Einstellungen",
     "profile": "Profil",
+    "logout": "Abmelden",
     "searchBy": "Suchen nach",
     "searchForMovies": "Nach Filmen suchen...",
     "language": "Sprache",
