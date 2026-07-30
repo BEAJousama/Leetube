@@ -169,7 +169,8 @@ export class AuthService implements IService {
 
     } catch (error) {
       logger.error('Failed to send verification email:', error);
-      throw new Error('Failed to send verification email');
+      // We don't throw here so that registration can still succeed even if SMTP fails
+      // throw new Error('Failed to send verification email');
     }
   }
 
