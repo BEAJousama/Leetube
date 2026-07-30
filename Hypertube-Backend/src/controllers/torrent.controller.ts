@@ -518,6 +518,9 @@ export class TorrentController {
     }
 
     try {
+      // 0. Ensure the movie exists in the database first to prevent Foreign Key constraints on subtitles
+      await this.movieService.findOrCreateMovieByExternalId(movieId);
+
       // 1. Check if we already have it downloaded
       let subtitlePath = await this.subtitlesService.getSavedSubtitlePath(
         movieId,
