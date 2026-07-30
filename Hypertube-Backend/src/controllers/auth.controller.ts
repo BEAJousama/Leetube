@@ -55,7 +55,7 @@ export class AuthController {
       res.cookie('refreshToken', result.refreshToken, {
         httpOnly: true,
         secure: config.nodeEnv === 'production',
-        sameSite: config.nodeEnv === 'production' ? 'none' : 'lax',
+        sameSite: (config.nodeEnv === 'production' ? 'none' : 'lax') as 'none' | 'lax',
         maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
       });
       
@@ -95,7 +95,7 @@ export class AuthController {
       res.cookie('refreshToken', result.refreshToken, {
         httpOnly: true,
         secure: config.nodeEnv === 'production',
-        sameSite: config.nodeEnv === 'production' ? 'none' : 'lax',
+        sameSite: (config.nodeEnv === 'production' ? 'none' : 'lax') as 'none' | 'lax',
         maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
       });
       
@@ -130,7 +130,7 @@ export class AuthController {
       const clearCookieOptions = {
         httpOnly: true,
         secure: config.nodeEnv === 'production',
-        sameSite: config.nodeEnv === 'production' ? 'none' : 'lax' as const
+        sameSite: (config.nodeEnv === 'production' ? 'none' : 'lax') as 'none' | 'lax'
       };
       res.clearCookie('refreshToken', clearCookieOptions);
       
@@ -247,7 +247,7 @@ export class AuthController {
         res.cookie('refreshToken', tokens.refreshToken, {
           httpOnly: true,
           secure: config.nodeEnv === 'production',
-          sameSite: config.nodeEnv === 'production' ? 'none' : 'lax',
+          sameSite: (config.nodeEnv === 'production' ? 'none' : 'lax') as 'none' | 'lax',
           maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
         });
       }
@@ -494,7 +494,7 @@ async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<v
         const clearCookieOptions = {
           httpOnly: true,
           secure: config.nodeEnv === 'production',
-          sameSite: config.nodeEnv === 'production' ? 'none' : 'lax' as const
+          sameSite: (config.nodeEnv === 'production' ? 'none' : 'lax') as 'none' | 'lax'
         };
         res.clearCookie('refreshToken', clearCookieOptions);
         res.json({
@@ -543,7 +543,7 @@ async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<v
       const cookieOptions = {
         httpOnly: false,
         secure: config.nodeEnv === 'production',
-        sameSite: config.nodeEnv === 'production' ? 'none' : 'lax' as const,
+        sameSite: (config.nodeEnv === 'production' ? 'none' : 'lax') as 'none' | 'lax',
         maxAge: 5 * 60 * 1000,
         path: '/'
       };
@@ -592,7 +592,7 @@ async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<v
       const cookieOptions = {
         httpOnly: false,
         secure: config.nodeEnv === 'production',
-        sameSite: config.nodeEnv === 'production' ? 'none' : 'lax' as const,
+        sameSite: (config.nodeEnv === 'production' ? 'none' : 'lax') as 'none' | 'lax',
         maxAge: 5 * 60 * 1000,
         path: '/'
       };
@@ -629,7 +629,7 @@ async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<v
       const clearCookieOptions = {
         path: '/',
         secure: config.nodeEnv === 'production',
-        sameSite: config.nodeEnv === 'production' ? 'none' : 'lax' as const
+        sameSite: (config.nodeEnv === 'production' ? 'none' : 'lax') as 'none' | 'lax'
       };
       res.clearCookie('oauthAccessToken', clearCookieOptions);
       res.clearCookie('oauthUserData', clearCookieOptions);
