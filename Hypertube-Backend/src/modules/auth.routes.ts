@@ -311,7 +311,6 @@ router.post('/resend-verification',
  *         $ref: '#/components/schemas/Error'
  */
 router.post('/refresh',
-  validateCookies(refreshTokenSchema),
   asyncHandler(authController.refresh.bind(authController))
 );
 
