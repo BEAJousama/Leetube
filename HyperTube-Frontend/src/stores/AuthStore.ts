@@ -66,6 +66,7 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: response.user,
             token: response.token,
+            storedRefreshToken: response.refreshToken || null,
             isAuthenticated: true,
             isLoading: false,
             error: null,
@@ -98,6 +99,7 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: response.user,
             token: response.token,
+            storedRefreshToken: response.refreshToken || null,
             isAuthenticated: true,
             isLoading: false,
             error: null,
