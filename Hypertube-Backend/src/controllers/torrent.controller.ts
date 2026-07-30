@@ -511,7 +511,7 @@ export class TorrentController {
       if (!subtitlePath) {
         logger.info(`Subtitle not found locally. Fetching on-demand for ${movieId} (${language})`);
         const downloaded = await this.subtitlesService.fetchAndSaveSubtitles(
-          movieId,
+          parseInt(movieId, 10),
           language as "en" | "es" | "fr" | "de" | "ar"
         );
         
