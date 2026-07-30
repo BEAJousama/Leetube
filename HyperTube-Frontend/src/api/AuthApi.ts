@@ -258,10 +258,18 @@ export class AuthAPI {
   // Handle OAuth callback (to be called after redirect)
   static async handleOAuthCallback(): Promise<AuthResponse | null> {
     try {
-      // After OAuth redirect, the backend should have set cookies
-      // We need to check if we're authenticated and get user data
-      const user = await UsersAPI.getMe();
-      return { token: "", user }; // Token will come from cookies
+      // Fetch OAuth tokens set as HTTP-only cookies by the backend
+      const response = await client.get("/api/auth/oauth-data", {
+        withCredentials: true,
+      });
+      
+      const { token, user } = response.data;
+      
+      if (!token || !user) {
+        throw new Error("OAuth data not received");
+      }
+      
+      return { token, user };
     } catch (_error) {
       // console.error("OAuth callback failed:", error); // Removed for lint compliance
       return null;
