@@ -1,0 +1,41 @@
+services:
+  hypertube-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: hypertube-frontend
+    env_file:
+      - .env.local
+    ports:
+      - "3001:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_HOST=0.0.0.0
+      - VITE_PORT=5173
+    stdin_open: true
+    tty: true
+    networks:
+      - hypertube-network
+    restart: unless-stopped
+
+  # Production service (optional - uncomment to use)
+  # hypertube-frontend-prod:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     target: production
+  #   container_name: hypertube-frontend-prod
+  #   ports:
+  #     - "3001:80"
+  #   networks:
+  #     - hypertube-network
+  #   restart: unless-stopped
+
+networks:
+  hypertube-network:
+    external: true
+    name: hypertube-network

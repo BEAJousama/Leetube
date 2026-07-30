@@ -1,0 +1,357 @@
+{
+  "Login": {
+    "title": "Bon retour",
+    "usernameOrEmail": "Nom d'utilisateur ou e-mail",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "submitting": "Connexion...",
+    "or": "OU",
+    "loginWithGoogle": "Se connecter avec Google",
+    "loginWith42": "Se connecter avec 42",
+    "dontHaveAccount": "Vous n'avez pas de compte ?",
+    "register": "S'inscrire",
+    "forgotPassword": "Mot de passe oublié ?"
+  },
+  "Register": {
+    "title": "Créer un compte",
+    "username": "Nom d'utilisateur",
+    "email": "E-mail",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "password": "Mot de passe",
+    "submit": "S'inscrire",
+    "submitting": "Inscription...",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "or": "OU",
+    "registerWithGoogle": "S'inscrire avec Google",
+    "registerWith42": "S'inscrire avec 42",
+    "haveAccount": "Vous avez déjà un compte ?",
+    "login": "Se connecter"
+  },
+  "Logout": {
+    "title": "Confirmer la déconnexion",
+    "message": "Êtes-vous sûr de vouloir vous déconnecter ?"
+  },
+  "ForgotPassword": {
+    "title": "Réinitialiser votre mot de passe",
+    "subtitle": "Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "inputLabel": "Adresse e-mail",
+    "inputPlaceholder": "Entrez votre e-mail",
+    "submit": "Envoyer le lien de réinitialisation",
+    "submitting": "Envoi...",
+    "remembered": "Vous vous souvenez de votre mot de passe ?",
+    "backToLogin": "Retour à la connexion",
+    "checkEmail": "Vérifiez votre e-mail",
+    "checkEmailMessage": "Nous avons envoyé un lien de réinitialisation à votre adresse e-mail. Veuillez vérifier votre boîte de réception et suivre les instructions.",
+    "dontReceive": "Vous n'avez pas reçu l'e-mail ? Vérifiez votre dossier spam ou",
+    "tryAgain": "réessayez"
+  },
+  "ResetPassword": {
+    "title": "Réinitialiser le mot de passe",
+    "subtitle": "Entrez votre nouveau mot de passe ci-dessous. Assurez-vous qu'il est robuste et sécurisé.",
+    "passwordLabel": "Nouveau mot de passe",
+    "passwordPlaceholder": "Entrez votre nouveau mot de passe",
+    "confirmPasswordLabel": "Confirmer le nouveau mot de passe",
+    "confirmPasswordPlaceholder": "Confirmez votre nouveau mot de passe",
+    "submit": "Réinitialiser le mot de passe",
+    "submitting": "Réinitialisation...",
+    "successTitle": "Mot de passe réinitialisé avec succès",
+    "successMessage": "Votre mot de passe a été changé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+    "successGoLogin": "Aller à la connexion",
+    "invalidTitle": "Lien de réinitialisation invalide",
+    "requestNew": "Demander un nouveau lien de réinitialisation",
+    "remembered": "Vous vous souvenez de votre mot de passe ?",
+    "backToLogin": "Retour à la connexion",
+    "genericError": "Échec de la réinitialisation du mot de passe",
+    "noTokenError": "Jeton de réinitialisation invalide ou manquant. Veuillez demander une nouvelle réinitialisation.",
+    "loading": "Chargement..."
+  },
+  "HomePage": {
+    "WatchTrailer:": "Regarder la bande-annonce",
+    "categories": {
+      "Action": "Action",
+      "Adventure": "Aventure",
+      "Animation": "Animation",
+      "Comedy": "Comédie",
+      "Crime": "Crime",
+      "Documentary": "Documentaire",
+      "Drama": "Drame",
+      "Family": "Famille",
+      "Fantasy": "Fantastique",
+      "History": "Histoire",
+      "Horror": "Horreur",
+      "Music": "Musique",
+      "Mystery": "Mystère",
+      "Romance": "Romance",
+      "Science Fiction": "Science-Fiction",
+      "TV Movie": "Téléfilm",
+      "Thriller": "Thriller",
+      "War": "Guerre",
+      "Western": "Western",
+      "sci-fi": "Sci-Fi"
+    }
+  },
+  "FavoritesPage": {
+    "HeroSection": {
+      "title": "Vos favoris",
+      "subtitle": "Bienvenue dans votre collection de favoris personnalisée ! Ici vous trouverez chaque film que vous avez marqué comme favori, ce qui facilite la redécouverte de classiques ou la reprise des nouveautés. Que vous soyez d'humeur pour un marathon nocturne ou à la recherche de quelque chose de frais, votre liste est toujours à portée de clic. Commencez à explorer et profitez d'une expérience de visionnage fluide taillée pour vous.",
+      "tags": {
+        "streamNow": "Diffuser maintenant",
+        "topPicks": "Meilleures sélections",
+        "curatedForYou": "Sélection pour vous"
+      }
+    },
+    "title": "Tous vos films favoris en un seul endroit. Profitez d'un streaming fluide et découvrez de nouvelles pépites !",
+    "emptyTitle": "Aucun favori pour l'instant !",
+    "emptySubtitle": "Ajoutez des films à vos favoris pour les voir ici.",
+    "ErrorLoading": "Erreur de chargement des favoris. Veuillez réessayer plus tard."
+  },
+  "LibraryPage": {
+    "HeroSection": {
+      "title": "Votre bibliothèque de films",
+      "subtitle": "Bienvenue dans votre bibliothèque personnelle ! Accédez et gérez facilement tous les films que vous avez ajoutés. Que vous souhaitiez revoir un classique ou explorer de nouveaux titres, votre bibliothèque est à un clic. Parcourez et profitez de votre voyage cinématographique !",
+      "tags": {
+        "myCollection": "Ma collection",
+        "watchAnytime": "Regarder à tout moment",
+        "organized": "Organisé"
+      }
+    },
+    "title": "Tous vos films enregistrés en un seul endroit. Profitez d'un streaming fluide et découvrez de nouveaux favoris !",
+    "emptyTitle": "Votre bibliothèque est vide !",
+    "emptySubtitle": "Ajoutez des films à votre bibliothèque pour les voir ici."
+  },
+  "TrendingPage": {
+    "HeroSection": {
+      "title": "Films tendance",
+      "subtitle": "Découvrez les films dont tout le monde parle ! Notre section tendance met en avant les nouveautés et les plus populaires. Des blockbusters aux perles acclamées, restez à jour et trouvez votre prochain film favori.",
+      "tags": {
+        "popularNow": "Populaire maintenant",
+        "mustWatch": "À voir absolument",
+        "hotRightNow": "Actuellement en vogue"
+      }
+    },
+    "title": "Restez à jour avec les derniers films tendance. Découvrez ce qui est populaire et regardez les films du moment !",
+    "emptyTitle": "Aucun film tendance disponible !",
+    "emptySubtitle": "Revenez plus tard pour voir les derniers films tendance."
+  },
+  "MoviePage": {
+    "overview": "Aperçu",
+    "watchTrailer": "Regarder la bande-annonce",
+    "addToFavorites": "Ajouter aux favoris",
+    "addToLibrary": "Ajouter à la bibliothèque",
+    "inLibrary": "Dans la bibliothèque",
+    "inFavorites": "Dans les favoris",
+    "addComment": "Ajouter un commentaire",
+    "writeYourComment": "Écrivez votre commentaire...",
+    "noComments": "Aucun commentaire pour l'instant. Soyez le premier à commenter !",
+    "comments": "Commentaires",
+    "noDescription": "Aucune description disponible.",
+    "playMovie": "Lire le film",
+    "noSourcesTitle": "Aucune source disponible",
+    "noSourcesMessage": "Ce film n'est actuellement pas disponible en streaming. Nous travaillons pour ajouter plus de sources.",
+    "requestNotification": "Notifier quand disponible",
+    "findSimilar": "Trouver des films similaires",
+    "noSourcesBannerTitle": "Streaming non disponible",
+    "noSourcesBannerMessage": "Ce film ne peut pas être diffusé pour le moment. Vous pouvez toujours voir les détails et l'ajouter à vos listes.",
+    "emptyTitle": "Aucun film à afficher !",
+    "emptySubtitle": "Ajoutez des films pour commencer à créer votre liste.",
+    "ErrorLoading": "Erreur lors du chargement du film",
+    "ErrorLoadingMsg": "Une erreur est survenue lors de la récupération des détails du film. Veuillez rafraîchir la page ou réessayer plus tard.",
+    "notFound": "Le film demandé est introuvable.",
+    "invalidId": "ID de film invalide",
+    "invalidIdMsg": "L'ID de film fourni est invalide. Veuillez vérifier l'URL et réessayer.",
+    "loading": "Chargement des détails du film...",
+    "cast": "Acteurs",
+    "preparingVideo": "Préparation de la vidéo",
+    "preparingVideoMessage": "Le film est en cours de traitement pour le streaming. Cela peut prendre quelques minutes.",
+    "preparingProgress": "Progression : {{progress}}%",
+    "preparationError": "Erreur de préparation de la vidéo"
+  },
+  "SettingsPage": {
+    "title": "Paramètres",
+    "subtitle": "Gérez votre compte, vos appareils et votre sécurité.",
+    "uploadAvatar": "Télécharger un avatar",
+    "dragAndDrop": "Glissez-déposez un fichier image ici, ou cliquez pour sélectionner un fichier",
+    "acceptedFormats": "Formats acceptés : JPG, PNG, GIF",
+    "maxSize": "Taille maximale : 2MB",
+    "submitPicture": "Soumettre l'image",
+    "removingPicture": "Suppression...",
+    "removePicture": "Supprimer l'image",
+    "pictureUploadError": "Échec du téléchargement de l'image. Veuillez réessayer.",
+    "pictureRemoveError": "Échec de la suppression de l'image. Veuillez réessayer.",
+    "Profile": {
+      "title": "Profil",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "username": "Nom d'utilisateur",
+      "email": "E-mail",
+      "preferredLanguage": "Langue préférée",
+      "selectLanguage": "Sélectionner la langue",
+      "saveChanges": "Enregistrer les modifications",
+      "saving": "Enregistrement...",
+      "reset": "Réinitialiser",
+      "updateSuccess": "Profil mis à jour avec succès !",
+      "updateError": "Échec de la mise à jour du profil. Veuillez réessayer."
+    },
+    "Password": {
+      "title": "Mot de passe",
+      "currentPassword": "Mot de passe actuel",
+      "newPassword": "Nouveau mot de passe",
+      "confirmNewPassword": "Confirmer le nouveau mot de passe",
+      "updatePassword": "Mettre à jour le mot de passe",
+      "updating": "Mise à jour...",
+      "updateSuccess": "Mot de passe mis à jour avec succès !",
+      "updateError": "Échec de la mise à jour du mot de passe. Veuillez vérifier votre mot de passe actuel."
+    },
+    "security": "Sécurité",
+    "loggedInDevices": "Appareils connectés",
+    "remove": "Supprimer",
+    "removing": "Suppression...",
+    "noDevices": "Aucun autre appareil connecté.",
+    "removeAllDevices": "Supprimer tous les autres appareils",
+    "current": "Actuel",
+    "lastActive": "Dernière activité",
+    "unkownDevice": "Appareil inconnu",
+    "confirmRevokeAllTitle": "Déconnecter tous les autres appareils",
+    "confirmRevokeAllMessage": "Êtes-vous sûr de vouloir déconnecter tous les autres appareils ? Vous resterez connecté sur cet appareil.",
+    "confirmRevokeTitle": "Déconnecter cet appareil",
+    "confirmRevokeMessage": "Êtes-vous sûr de vouloir déconnecter cet appareil ?"
+  },
+  "NotFoundPage": {
+    "title": "404 - Page non trouvée",
+    "subtitle": "Désolé, la page que vous recherchez n'existe pas.",
+    "goHome": "Aller à l'accueil"
+  },
+  "ContinueWatching": "Continuer à regarder",
+  "NavBar": {
+    "settings": "Paramètres",
+    "profile": "Profil",
+    "searchBy": "Rechercher par",
+    "searchForMovies": "Rechercher des films...",
+    "language": "Langue",
+    "languages": {
+      "en": "Anglais",
+      "fr": "Français",
+      "es": "Espagnol",
+      "de": "Allemand"
+    },
+    "SearchOptions": {
+      "byReleaseDate": "Date de sortie",
+      "byRating": "Note",
+      "byTitle": "Titre",
+      "byYear": "Année",
+      "byCast": "Acteurs"
+    }
+  },
+  "CategoryNav": {
+    "sortBy": "Trier par",
+    "more": "Plus",
+    "moreCategories": "Plus de catégories",
+    "sortOptions": {
+      "latest": "Récent",
+      "rating": "Note",
+      "popularity": "Popularité",
+      "title": "Titre",
+      "year": "Année"
+    }
+  },
+  "SideBar": {
+    "home": "Accueil",
+    "trending": "Tendances",
+    "favorites": "Favoris",
+    "library": "Bibliothèque",
+    "settings": "Paramètres"
+  },
+  "ProfilePage": {
+    "title": "Profil",
+    "logout": "Se déconnecter",
+    "email": "E-mail",
+    "username": "Nom d'utilisateur",
+    "emailStatus": "Statut de l'e-mail",
+    "verified": "Vérifié",
+    "resendVerification": "Renvoyer l'e-mail de vérification",
+    "notVerified": "Non vérifié",
+    "memberSince": "Membre depuis",
+    "verification": {
+      "title": "Vérification de l'e-mail requise",
+      "message": "Veuillez vérifier votre boîte de réception et cliquer sur le lien de vérification pour activer votre compte."
+    }
+  },
+    "SearchPage": {
+      "title": "Résultats de recherche",
+      "subtitle": "Trouvez des films qui correspondent à vos intérêts.",
+      "noResults": "Aucun résultat",
+      "noResultsMsg": "Aucun résultat trouvé pour votre recherche.",
+      "tryDifferent": "Essayez d'autres mots-clés ou filtres pour trouver ce que vous cherchez."
+    },
+  "Footer": {},
+  "Loading": "Chargement...",
+  "playTrailer": "Lire la bande-annonce",
+  "TypeSomething": "Tapez quelque chose...",
+  "LoadMoreMovies": "Charger plus de films...",
+  "SomthingWentWrong": "Un problème est survenu",
+  "SomthingWentWrongMessage": "Une erreur inattendue s'est produite. Veuillez essayer d'actualiser la page.",
+  "Confirm": "Confirmer",
+  "Cancel": "Annuler",
+  "RefreshPage": "Actualiser la page",
+  "LoginSchema": {
+    "username": {
+      "required": "Nom d'utilisateur ou e-mail requis",
+      "invalid": "Entrez un nom d'utilisateur valide (3-30 caractères, lettres, chiffres, underscores) ou une adresse e-mail"
+    },
+    "password": {
+      "min": "Le mot de passe doit comporter au moins 8 caractères",
+      "max": "Le mot de passe doit comporter au maximum 100 caractères",
+      "uppercase": "Le mot de passe doit contenir au moins une lettre majuscule",
+      "lowercase": "Le mot de passe doit contenir au moins une lettre minuscule",
+      "number": "Le mot de passe doit contenir au moins un chiffre",
+      "special": "Le mot de passe doit contenir au moins un caractère spécial"
+    }
+  },
+  "ForgotPasswordSchema": {
+    "email": {
+      "required": "L'e-mail est requis",
+      "invalid": "Veuillez entrer une adresse e-mail valide"
+    }
+  },
+  "ResetPasswordSchema": {
+    "password": {
+      "min": "Le mot de passe doit comporter au moins 8 caractères",
+      "uppercase": "Le mot de passe doit contenir au moins une lettre majuscule",
+      "lowercase": "Le mot de passe doit contenir au moins une lettre minuscule",
+      "number": "Le mot de passe doit contenir au moins un chiffre",
+      "special": "Le mot de passe doit contenir au moins un caractère spécial"
+    },
+    "confirmPassword": {
+      "required": "Veuillez confirmer votre mot de passe",
+      "match": "Les mots de passe ne correspondent pas"
+    }
+  },
+  "RegisterSchema": {
+    "firstName": {
+      "min": "Le prénom doit comporter au moins 2 caractères",
+      "max": "Le prénom doit comporter au maximum 50 caractères"
+    },
+    "lastName": {
+      "min": "Le nom doit comporter au moins 2 caractères",
+      "max": "Le nom doit comporter au maximum 50 caractères"
+    },
+    "email": {
+      "invalid": "Adresse e-mail invalide"
+    }
+  },
+  "EmailVerification": {
+    "success": "E-mail vérifié avec succès ! Vous êtes redirigé...",
+    "invalidToken": "Lien de vérification invalide ou expiré. Veuillez réessayer.",
+    "alreadyVerified": "L'e-mail est déjà vérifié. Vous êtes redirigé...",
+    "genericError": "Échec de la vérification de l'e-mail. Veuillez réessayer."
+  },
+  "OAuth": {
+    "error": "Échec de l'authentification. Veuillez réessayer.",
+    "backToLogin": "Retour à la connexion",
+    "completing": "Finalisation de l'authentification...",
+    "redirecting": "Redirection...",
+    "missingData": "Données OAuth manquantes. Veuillez essayer de vous reconnecter.",
+    "pleaseWait": "Veuillez patienter pendant que nous configurons votre compte..."
+  }
+}

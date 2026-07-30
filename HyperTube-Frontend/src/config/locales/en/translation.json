@@ -1,0 +1,361 @@
+{
+  "Login": {
+    "title": "Welcome Back",
+    "usernameOrEmail": "Username or Email",
+    "password": "Password",
+    "submit": "Log In",
+    "submitting": "Logging in...",
+    "or": "OR",
+    "loginWithGoogle": "Log in with Google",
+    "loginWith42": "Log in with 42",
+    "dontHaveAccount": "Don't have an account?",
+    "register": "Register",
+    "forgotPassword": "Forgot password?"
+  },
+  "Register": {
+    "title": "Create an Account",
+    "username": "Username",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "password": "Password",
+    "submit": "Register",
+    "submitting": "Registering...",
+    "alreadyHaveAccount": "Already have an account?",
+    "or": "OR",
+    "registerWithGoogle": "Register with Google",
+    "registerWith42": "Register with 42",
+    "haveAccount": "Already have an account?",
+    "login": "Log In"
+  },
+  "Logout": {
+    "title": "Confirm Logout",
+    "message": "Are you sure you want to log out?"
+  },
+  "ForgotPassword": {
+    "title": "Reset Your Password",
+    "subtitle": "Enter your email address and we'll send you a link to reset your password.",
+    "inputLabel": "Email Address",
+    "inputPlaceholder": "Enter your email",
+    "submit": "Send Reset Link",
+    "submitting": "Sending...",
+    "remembered": "Remembered your password?",
+    "backToLogin": "Back to Login",
+    "checkEmail": "Check Your Email",
+    "checkEmailMessage": "We've sent a password reset link to your email address. Please check your inbox and follow the instructions to reset your password.",
+    "dontReceive": "Didn't receive the email? Check your spam folder or",
+    "tryAgain": "try again"
+  },
+  "ResetPassword": {
+    "title": "Reset Password",
+    "subtitle": "Enter your new password below. Make sure it's strong and secure.",
+    "passwordLabel": "New Password",
+    "passwordPlaceholder": "Enter your new password",
+    "confirmPasswordLabel": "Confirm New Password",
+    "confirmPasswordPlaceholder": "Confirm your new password",
+    "submit": "Reset Password",
+    "submitting": "Resetting...",
+    "successTitle": "Password Reset Successful",
+    "successMessage": "Your password has been successfully changed. You can now log in with your new password.",
+    "successGoLogin": "Go to Login",
+    "invalidTitle": "Invalid Reset Link",
+    "requestNew": "Request New Reset Link",
+    "remembered": "Remember your password?",
+    "backToLogin": "Back to Login",
+    "genericError": "Failed to reset password",
+    "noTokenError": "Invalid or missing reset token. Please request a new password reset.",
+    "loading": "Loading..."
+  },
+  "HomePage": {
+    "WatchTrailer:": "Watch Trailer",
+    "categories": {
+      "Action": "Action",
+      "Adventure": "Adventure",
+      "Animation": "Animation",
+      "Comedy": "Comedy",
+      "Crime": "Crime",
+      "Documentary": "Documentary",
+      "Drama": "Drama",
+      "Family": "Family",
+      "Fantasy": "Fantasy",
+      "History": "History",
+      "Horror": "Horror",
+      "Music": "Music",
+      "Mystery": "Mystery",
+      "Romance": "Romance",
+      "Science Fiction": "Science Fiction",
+      "TV Movie": "TV Movie",
+      "Thriller": "Thriller",
+      "War": "War",
+      "Western": "Western",
+      "sci-fi": "Sci-Fi"
+    }
+  },
+  "FavoritesPage": {
+    "HeroSection": {
+      "title": "Your Favorites",
+      "subtitle": "Welcome to your personalized favorites collection! Here, you'll find every movie you've marked as a favorite, making it easy to revisit beloved classics or catch up on new releases. Whether you're in the mood for a late-night binge or searching for something fresh to watch, your curated list is always just a click away. Start exploring and enjoy a seamless viewing experience tailored just for you.",
+      "tags": {
+        "streamNow": "Stream Now",
+        "topPicks": "Top Picks",
+        "curatedForYou": "Curated for You"
+      }
+    },
+    "title": "All your favorite movies in one place. Enjoy seamless streaming and discover new gems!",
+    "emptyTitle": "No favorites yet!",
+    "emptySubtitle": "Start adding movies to your favorites to see them here.",
+    "ErrorLoading": "Error loading favorites. Please try again later."
+  },
+  "LibraryPage": {
+    "HeroSection": {
+      "title": "Your Movie Library",
+      "subtitle": "Welcome to your personal movie library! Here, you can easily access and manage all the movies you've added to your collection. Whether you're looking to revisit a classic favorite or explore new titles, your curated library is just a click away. Start browsing and enjoy your cinematic journey!",
+      "tags": {
+        "myCollection": "My Collection",
+        "watchAnytime": "Watch Anytime",
+        "organized": "Organized"
+      }
+    },
+    "title": "All your saved movies in one place. Enjoy seamless streaming and discover new favorites!",
+    "emptyTitle": "Your library is empty!",
+    "emptySubtitle": "Add movies to your library to see them here."
+  },
+  "TrendingPage": {
+    "HeroSection": {
+      "title": "Trending Movies",
+      "subtitle": "Discover the hottest movies that everyone is talking about! Our trending section showcases the latest and most popular films that are making waves in the entertainment world. From blockbuster hits to critically acclaimed gems, stay up-to-date with what's trending and find your next favorite movie to watch.",
+      "tags": {
+        "popularNow": "Popular Now",
+        "mustWatch": "Must Watch",
+        "hotRightNow": "Hot Right Now"
+      }
+    },
+    "title": "Stay updated with the latest trending movies. Discover what's popular and watch the hottest films now!",
+    "emptyTitle": "No trending movies available!",
+    "emptySubtitle": "Check back later to see the latest trending movies."
+  },
+  "MoviePage": {
+    "overview": "Overview",
+    "watchTrailer": "Watch Trailer",
+    "addToFavorites": "Add to Favorites",
+    "addToLibrary": "Add to Library",
+    "inLibrary": "In Library",
+    "inFavorites": "In Favorites",
+    "addComment": "Add comment",
+    "writeYourComment": "Write your comment...",
+    "noComments": "No comments yet. Be the first to comment!",
+    "comments": "Comments",
+    "noDescription": "No description available.",
+    "playMovie": "Play Movie",
+    "noSourcesTitle": "No Sources Available",
+    "noSourcesMessage": "This movie is currently not available for streaming. We're working to add more sources.",
+    "requestNotification": "Notify When Available",
+    "findSimilar": "Find Similar Movies",
+    "noSourcesBannerTitle": "Streaming Not Available",
+    "noSourcesBannerMessage": "This movie cannot be streamed at the moment. You can still view details and add it to your lists.",
+    "emptyTitle": "No movies to show!",
+    "emptySubtitle": "Add movies to start building your list.",
+    "ErrorLoading": "Error Loading Movie",
+    "ErrorLoadingMsg": "An error occurred while fetching the movie details. Please refresh the page or try again later.",
+    "notFound": "The requested movie could not be found.",
+    "invalidId": "Invalid Movie ID",
+    "preparingVideo": "Preparing Video",
+    "preparingVideoMessage": "The movie is being processed for streaming. This may take a few minutes.",
+    "preparingProgress": "Progress: {{progress}}%",
+    "preparationError": "Video Preparation Error",
+    "invalidIdMsg": "The movie ID provided is invalid. Please check the URL and try again.",
+    "loading": "Loading movie details...",
+    "cast": "Cast"
+  },
+  "SettingsPage": {
+    "title": "Settings",
+    "subtitle": "Manage your account, devices and security.",
+    "uploadAvatar": "Upload Avatar",
+    "dragAndDrop": "Drag and drop an image file here, or click to select a file",
+    "acceptedFormats": "Accepted formats: JPG, PNG, GIF",
+    "maxSize": "Max size: 2MB",
+    "submitPicture": "Submit Picture",
+    "removingPicture": "Removing...",
+    "removePicture": "Remove Picture",
+    "pictureUploadError": "Failed to upload picture. Please try again.",
+    "pictureRemoveError": "Failed to remove picture. Please try again.",
+    "Profile": {
+      "title": "Profile",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "username": "Username",
+      "email": "Email",
+      "preferredLanguage": "Preferred Language",
+      "selectLanguage": "Select Language",
+      "saveChanges": "Save Changes",
+      "saving": "Saving...",
+      "reset": "Reset",
+      "updateSuccess": "Profile updated successfully!",
+      "updateError": "Failed to update profile. Please try again."
+    },
+    "Password": {
+      "title": "Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "updatePassword": "Update Password",
+      "updating": "Updating...",
+      "updateSuccess": "Password updated successfully!",
+      "updateError": "Failed to update password. Please check your current password."
+    },
+    "security": "Security",
+    "loggedInDevices": "Logged-in Devices",
+    "remove": "Remove",
+    "removing": "Removing...",
+    "noDevices": "No other devices logged in.",
+    "removeAllDevices": "Remove All Other Devices",
+    "current": "Current",
+    "lastActive": "Last active",
+    "unkownDevice": "Unknown Device",
+    "confirmRevokeAllTitle": "Confirm Revoke All Devices",
+    "confirmRevokeAllMessage": "Are you sure you want to revoke access for all devices?",
+    "confirmRevokeTitle": "Confirm Revoke Device",
+    "confirmRevokeMessage": "Are you sure you want to revoke access for this device?",
+    "deviceRevokeSuccess": "Device access revoked successfully!",
+    "deviceRevokeError": "Failed to revoke device access. Please try again.",
+    "revokeAllSuccess": "All other devices revoked successfully!",
+    "revokeAllError": "Failed to revoke all devices. Please try again."
+  },
+  "NotFoundPage": {
+    "title": "404 - Page Not Found",
+    "subtitle": "Sorry, the page you are looking for does not exist.",
+    "goHome": "Go to Home"
+  },
+  "ContinueWatching": "Continue Watching",
+  "NavBar": {
+    "settings": "Settings",
+    "profile": "Profile",
+    "searchBy": "Search by",
+    "searchForMovies": "Search for movies...",
+    "language": "Language",
+    "languages": {
+      "en": "English",
+      "fr": "Français",
+      "es": "Español",
+      "de": "Deutsch"
+    },
+    "SearchOptions": {
+      "byRating": "Rating",
+      "byTitle": "Title",
+      "byYear": "Year",
+      "byCast": "Cast"
+    }
+  },
+  "CategoryNav": {
+    "sortBy": "Sort by",
+    "more": "More",
+    "moreCategories": "More Categories",
+    "sortOptions": {
+      "latest": "Latest",
+      "rating": "Rating",
+      "popularity": "Popularity",
+      "title": "Title",
+      "year": "Year"
+    }
+  },
+  "SideBar": {
+    "home": "Home",
+    "trending": "Trending",
+    "favorites": "Favorites",
+    "library": "Library",
+    "settings": "Settings"
+  },
+  "ProfilePage": {
+    "title": "Profile",
+    "logout": "Logout",
+    "email": "Email",
+    "username": "Username",
+    "resendVerification": "Resend Verification Email",
+    "emailStatus": "Email Status",
+    "verified": "Verified",
+    "notVerified": "Not Verified",
+    "memberSince": "Member Since",
+    "verification": {
+      "title": "Email Verification Required",
+      "message": "Please check your inbox and click the verification link to activate your account."
+    }
+  },
+  "SearchPage": {
+    "title": "Search Results",
+    "subtitle": "Find movies that match your interests.",
+    "noResults": "No Results",
+    "noResultsMsg": "No results found for your search.",
+    "tryDifferent": "Try different keywords or filters to find what you're looking for."
+  },
+  "Footer": {},
+
+  "Loading": "Loading...",
+  "playTrailer": "Play trailer",
+  "TypeSomething": "Type something...",
+  "LoadMoreMovies": "Loading more movies...",
+  "SomthingWentWrong": "Something went wrong",
+  "SomthingWentWrongMessage": "An unexpected error occurred. Please try refreshing the page.",
+  "Confirm": "Confirm",
+  "Cancel": "Cancel",
+  "RefreshPage": "Refresh Page",
+  "LoginSchema": {
+    "username": {
+      "required": "Username or email is required",
+      "invalid": "Enter a valid username (3-30 characters, letters, numbers, underscores) or email address"
+    },
+    "password": {
+      "min": "Password must be at least 8 characters",
+      "max": "Password must be at most 100 characters",
+      "uppercase": "Password must contain at least one uppercase letter",
+      "lowercase": "Password must contain at least one lowercase letter",
+      "number": "Password must contain at least one number",
+      "special": "Password must contain at least one special character"
+    }
+  },
+  "ForgotPasswordSchema": {
+    "email": {
+      "required": "Email is required",
+      "invalid": "Please enter a valid email address"
+    }
+  },
+  "ResetPasswordSchema": {
+    "password": {
+      "min": "Password must be at least 8 characters",
+      "uppercase": "Password must contain at least one uppercase letter",
+      "lowercase": "Password must contain at least one lowercase letter",
+      "number": "Password must contain at least one number",
+      "special": "Password must contain at least one special character"
+    },
+    "confirmPassword": {
+      "required": "Please confirm your password",
+      "match": "Passwords do not match"
+    }
+  },
+  "RegisterSchema": {
+    "firstName": {
+      "min": "First name must be at least 2 characters",
+      "max": "First name must be at most 50 characters"
+    },
+    "lastName": {
+      "min": "Last name must be at least 2 characters",
+      "max": "Last name must be at most 50 characters"
+    },
+    "email": {
+      "invalid": "Invalid email address"
+    }
+  },
+  "emailVerification": {
+    "success": "Email successfully verified! You are being redirected...",
+    "invalidToken": "Invalid or expired verification link. Please try again.",
+    "alreadyVerified": "Email is already verified. You are being redirected...",
+    "genericError": "Email verification failed. Please try again."
+  },
+  "OAuth": {
+    "error": "Authentication login failed. Please try again.",
+    "backToLogin": "Back to Login",
+    "completing": "Completing Authentication...",
+    "redirecting": "Redirecting...",
+    "missingData": "Missing OAuth data. Please try logging in again.",
+    "pleaseWait": "Please wait while we set up your account..."
+  }
+}

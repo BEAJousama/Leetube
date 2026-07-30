@@ -1,0 +1,46 @@
+{
+    "name": "HyperTube Frontend",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/app",
+    "shutdownAction": "stopCompose",
+    "postCreateCommand": "npm install",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bradlc.vscode-tailwindcss",
+                "esbenp.prettier-vscode",
+                "ms-vscode.vscode-typescript-next",
+                "ms-vscode.vscode-json",
+                "formulahendry.auto-rename-tag",
+                "christian-kohler.path-intellisense"
+            ],
+            "settings": {
+                "typescript.preferences.includePackageJsonAutoImports": "on",
+                "typescript.suggest.autoImports": true,
+                "typescript.validate.enable": true,
+                "javascript.validate.enable": true,
+                "eslint.enable": true,
+                "editor.formatOnSave": true,
+                "editor.defaultFormatter": "esbenp.prettier-vscode",
+                "editor.codeActionsOnSave": {
+                    "source.fixAll.eslint": "explicit"
+                },
+                "files.associations": {
+                    "*.tsx": "typescriptreact",
+                    "*.ts": "typescript"
+                }
+            }
+        }
+    },
+    "remoteUser": "node",
+    "forwardPorts": [
+        3001
+    ],
+    "portsAttributes": {
+        "3001": {
+            "label": "Frontend App",
+            "onAutoForward": "notify"
+        }
+    }
+}

@@ -1,0 +1,245 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// USER MODELS
+// ============================================================================
+
+model User {
+  id                       String    @id @default(cuid())
+  email                    String    @unique
+  username                 String    @unique
+  firstName                String?   @map("first_name")
+  lastName                 String?   @map("last_name")
+  password                 String
+  picture                  String?
+  oauthId                  String?   @map("oauth_id")
+  oauthProvider            String?   @map("oauth_provider")
+  preferredLanguage        String    @default("en") @map("preferred_language")
+  emailVerified            Boolean   @default(false) @map("email_verified")
+  lastLogin                DateTime? @map("last_login")
+  isActive                 Boolean   @default(true) @map("is_active")
+  createdAt                DateTime  @default(now()) @map("created_at")
+  updatedAt                DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  userMovies               UserMovie[]
+  // watchHistory             WatchHistory[]
+  comments                 Comment[]
+  ratings                  Rating[]
+  oauthTokens              OAuthToken[]
+  refreshTokens            RefreshToken[]
+
+  // Composite unique constraint for OAuth (allows multiple providers per user)
+  @@unique([oauthId, oauthProvider], name: "unique_oauth_user")
+  @@map("users")
+}
+
+model OAuthToken {
+  id            String    @id @default(cuid())
+  userId        String    @map("user_id")
+  provider      String    // 'google', '42', 'facebook', etc.
+  accessToken   String    @map("access_token") @db.Text
+  refreshToken  String?   @map("refresh_token") @db.Text
+  tokenType     String?   @default("Bearer") @map("token_type")
+  scope         String?   // OAuth scopes granted
+  expiresAt     DateTime? @map("expires_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, provider], name: "unique_user_provider")
+  @@map("oauth_tokens")
+}
+
+model RefreshToken {
+  id            String    @id @default(cuid())
+  userId        String    @map("user_id")
+  token         String    @unique @db.Text
+  deviceInfo    String?   @map("device_info")    // Browser, device type, etc.
+  userAgent     String?   @map("user_agent")     // Full user agent string
+  ipAddress     String?   @map("ip_address")     // IP address of the device
+  location      String?   // Geolocation info (city, country)
+  isActive      Boolean   @default(true) @map("is_active")
+  expiresAt     DateTime  @map("expires_at")
+  lastUsedAt    DateTime? @map("last_used_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
+}
+
+// ============================================================================
+// MOVIE MODELS
+// ============================================================================
+
+model Movie {
+  id                String    @id @default(cuid())
+  title             String
+  year              Int?
+  genre             String?
+  description       String?   @db.Text
+  posterUrl         String?   @map("poster_url") @db.Text
+  backdropUrl       String?   @map("backdrop_url") @db.Text
+  imdbId            String?   @unique @map("imdb_id")
+  tmdbId            Int?      @unique @map("tmdb_id")
+  duration          Int?      // in minutes
+  rating            Float?    // IMDB/TMDB rating
+  director          String?
+  country           String?
+  language          String?
+  trailerUrl        String?   @map("trailer_url") @db.Text // YouTube trailer URL
+  downloadPath      String?   @map("download_path") @db.Text
+  fileSize          BigInt?   @map("file_size")
+  downloaded        Boolean   @default(false)
+  downloading       Boolean   @default(false)
+  downloadProgress  Float?    @map("download_progress")
+  lastAccessed      DateTime? @map("last_accessed")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  userMovies        UserMovie[]
+  // watchHistory      WatchHistory[]
+  comments          Comment[]
+  ratings           Rating[]
+  sources           MovieSource[]
+  subtitles         Subtitle[]
+
+  @@map("movies")
+}
+
+model UserMovie {
+  userId      String    @map("user_id")
+  movieId     String    @map("movie_id")
+  watched     Boolean   @default(false)
+  favorite    Boolean   @default(false)
+  watchlist   Boolean   @default(false)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movie       Movie     @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@id([userId, movieId])
+  @@map("user_movies")
+}
+
+// model WatchHistory {
+//   id               String    @id @default(cuid())
+//   userId           String    @map("user_id")
+//   movieId          String    @map("movie_id")
+//   watchedAt        DateTime  @default(now()) @map("watched_at")
+//   durationWatched  Int       @map("duration_watched") // seconds watched
+//   totalDuration    Int       @map("total_duration")   // total movie duration
+//   progress         Float     @default(0)              // percentage completed
+//   completed        Boolean   @default(false)
+//   deviceInfo       String?   @map("device_info")
+//   ipAddress        String?   @map("ip_address")
+//   updatedAt        DateTime  @updatedAt @map("updated_at")
+
+//   // Relations
+//   user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   movie            Movie     @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+//   @@unique([userId, movieId])
+//   @@map("watch_history")
+// }
+
+model MovieSource {
+  id          String    @id @default(cuid())
+  movieId     String    @map("movie_id")
+  sourceName  String    @map("source_name")  // e.g., "YTS", "RARBG", "1337x"
+  sourceId    String    @map("source_id")    // external source ID
+  magnetLink  String?   @map("magnet_link") @db.Text
+  torrentUrl  String?   @map("torrent_url") @db.Text
+  quality     String?   // e.g., "1080p", "720p"
+  fileSize    BigInt?   @map("file_size")
+  seeders     Int?
+  leechers    Int?
+  isVerified  Boolean   @default(false) @map("is_verified")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  movie       Movie     @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([movieId, sourceName, sourceId])
+  @@map("movie_sources")
+}
+
+model Subtitle {
+  id            String    @id @default(cuid())
+  movieId       String    @map("movie_id")
+  language      String    // e.g., "en", "fr", "es"
+  languageName  String    @map("language_name") // e.g., "English", "French"
+  format        String    @default("srt")       // subtitle format
+  url           String?   @db.Text              // download URL
+  filePath      String?   @map("file_path") @db.Text
+  fileSize      Int?      @map("file_size")
+  isDefault     Boolean   @default(false) @map("is_default")
+  isDownloaded  Boolean   @default(false) @map("is_downloaded")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  movie         Movie     @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([movieId, language])
+  @@map("subtitles")
+}
+
+// ============================================================================
+// COMMENT & RATING MODELS
+// ============================================================================
+
+model Comment {
+  id            String    @id @default(cuid())
+  userId        String    @map("user_id")
+  movieId       String    @map("movie_id")
+  content       String    @db.Text
+  isEdited      Boolean   @default(false) @map("is_edited")
+  editedAt      DateTime? @map("edited_at")
+  isDeleted     Boolean   @default(false) @map("is_deleted")
+  deletedAt     DateTime? @map("deleted_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movie         Movie     @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@map("comments")
+}
+
+model Rating {
+  id        String    @id @default(cuid())
+  userId    String    @map("user_id")
+  movieId   String    @map("movie_id")
+  rating    Int       // 1-5 stars
+  review    String?   @db.Text
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movie     Movie     @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId])
+  @@map("ratings")
+}

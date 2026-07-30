@@ -1,0 +1,31 @@
+
+#!/usr/bin/env sh
+
+echo "🚀 Running pre-commit hooks..."
+
+echo "🔍 Running type checks..."
+if ! npm run type-check; then
+  echo "❌ Type check failed. Please fix the TypeScript errors before committing."
+  echo "💡 Run 'npm run type-check' to see detailed errors."
+  exit 1
+fi
+
+echo "✅ Type check passed."
+
+echo "🔍 Running lint checks..."
+if ! npm run lint; then
+  echo "❌ Lint check failed. Please fix the lint errors before committing."
+  echo "💡 Run 'npm run lint' to see detailed errors."
+  echo "💡 Run 'npm run lint:fix' to automatically fix some lint errors."
+  exit 1
+fi
+echo "✅ Lint check passed."
+
+echo "🔍 Running build checks..."
+if ! npm run build; then
+  echo "❌ Build check failed. Please fix the build errors before committing."
+  echo "💡 Run 'npm run build' to see detailed errors."
+  exit 1
+fi
+echo "✅ Build check passed."
+echo "✅ All pre-commit checks passed! 🎉"
