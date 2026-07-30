@@ -98,6 +98,22 @@ export class TorrentController {
       await this.movieService.markMovieAsDownloaded(movieId);
     }
 
+    // Download all subtitles asynchronously so it doesn't block stream
+    const supportedLanguages = ["en", "es", "fr", "de", "ar"];
+    logger.info(`Starting subtitle download for movie ${movieId} in ${supportedLanguages.length} languages`);
+
+    (async () => {
+      try {
+        for (const lang of supportedLanguages) {
+          logger.info(`Downloading subtitles for language: ${lang}`);
+          await this.subtitlesService.fetchAndSaveSubtitles(movieId, lang as "en" | "es" | "fr" | "de" | "ar");
+        }
+        logger.info(`All subtitles downloaded successfully for movie ${movieId}`);
+      } catch (error) {
+        logger.error(`Error downloading subtitles for movie ${movieId}:`, error);
+      }
+    })();
+
     // Wait for initial buffering (2MB) with timeout
     const startTime = Date.now();
     const timeout = 30000; // 30 seconds
@@ -148,22 +164,6 @@ export class TorrentController {
         await this.movieService.updateMovieTorrentData(internalMovieId, torrentMetadata);
       }
     }
-
-    // Download all subtitles asynchronously so it doesn't block stream
-    const supportedLanguages = ["en", "es", "fr", "de", "ar"];
-    logger.info(`Starting subtitle download for movie ${movieId} in ${supportedLanguages.length} languages`);
-
-    (async () => {
-      try {
-        for (const lang of supportedLanguages) {
-          logger.info(`Downloading subtitles for language: ${lang}`);
-          await this.subtitlesService.fetchAndSaveSubtitles(movieId, lang as "en" | "es" | "fr" | "de" | "ar");
-        }
-        logger.info(`All subtitles downloaded successfully for movie ${movieId}`);
-      } catch (error) {
-        logger.error(`Error downloading subtitles for movie ${movieId}:`, error);
-      }
-    })();
 
     await this.movieService.markMovieAsWatched(userId, internalMovieId);
 

@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import path from 'path';
 import { config } from './config/environment';
 import { logger } from './shared/utils/logger';
 import { MemoryMonitor } from './shared/utils/memory-monitor';
@@ -126,8 +127,8 @@ class App {
     this.app.use(loggerMiddleware);
 
     // Static files - serve from shared data directory
-    this.app.use('/uploads', express.static('/app/uploads'));
-    this.app.use('/downloads', express.static('/app/downloads'));
+    this.app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+    this.app.use('/downloads', express.static(path.join(process.cwd(), 'downloads')));
   }
 
   private initializeRoutes(): void {

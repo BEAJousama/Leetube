@@ -179,8 +179,8 @@ const HomePage = () => {
       <HeroSection
         currentSlide={currentSlide}
         setCurrentSlide={setCurrentSlide}
-        onTrailerPlay={() =>
-          openTrailer(movies[currentSlide]?.trailerUrl || null)
+        onTrailerPlay={(trailerUrl) =>
+          openTrailer(trailerUrl)
         }
       />
       <CategoryNav

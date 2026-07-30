@@ -548,10 +548,8 @@ async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<v
         path: '/'
       };
 
-      res.cookie('oauthAccessToken', token, cookieOptions);
-      res.cookie('oauthUserData', JSON.stringify(userData), cookieOptions);
-
-      const redirectUrl = `${config.frontendUrl}/auth/success?provider=42&isNewUser=${isNewUser}`;
+      const encodedUserData = encodeURIComponent(JSON.stringify(userData));
+      const redirectUrl = `${config.frontendUrl}/auth/success?provider=42&isNewUser=${isNewUser}&token=${token}&userData=${encodedUserData}`;
       return res.redirect(redirectUrl);
 
     } catch (error) {
@@ -597,10 +595,8 @@ async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<v
         path: '/'
       };
 
-      res.cookie('oauthAccessToken', token, cookieOptions);
-      res.cookie('oauthUserData', JSON.stringify(userData), cookieOptions);
-
-      const redirectUrl = `${config.frontendUrl}/auth/success?provider=google&isNewUser=${isNewUser}`;
+      const encodedUserData = encodeURIComponent(JSON.stringify(userData));
+      const redirectUrl = `${config.frontendUrl}/auth/success?provider=google&isNewUser=${isNewUser}&token=${token}&userData=${encodedUserData}`;
       return res.redirect(redirectUrl);
 
     } catch (error) {

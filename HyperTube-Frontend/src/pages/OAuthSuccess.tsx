@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useAuth } from "@/stores/AuthStore";
+import { useAuth, setAuthData } from "@/stores/AuthStore";
 import { setAccessToken } from "@/api/Client";
 import { Loading } from "@/components/ui/Loading";
 import { useTranslation } from "react-i18next";
@@ -24,8 +24,17 @@ const OAuthSuccess = () => {
         setLoading(true);
         clearError();
 
-        // Let the store handle fetching the token/user from the backend
-        await handleOAuthCallback();
+        const token = searchParams.get("token");
+        const userDataStr = searchParams.get("userData");
+
+        if (token && userDataStr) {
+          const userData = JSON.parse(decodeURIComponent(userDataStr));
+          setAuthData(token, userData);
+          setAccessToken(token);
+        } else {
+          // Let the store handle fetching the token/user from the backend as fallback
+          await handleOAuthCallback();
+        }
 
         // Clean the URL by replacing the current history entry
         window.history.replaceState({}, document.title, "/auth/success");
