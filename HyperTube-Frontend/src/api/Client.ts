@@ -80,10 +80,14 @@ client.interceptors.response.use(
       isRefreshing = true;
 
       try {
+        // Get refresh token from AuthStore
+        const { useAuthStore } = await import("../stores/AuthStore");
+        const currentRefreshToken = useAuthStore.getState().storedRefreshToken;
+
         // Try to refresh the token
         const response = await axios.post(
           REFRESH_TOKEN_URL,
-          {},
+          { refreshToken: currentRefreshToken || undefined },
           {
             withCredentials: true,
             timeout: 10000, // 10 second timeout for refresh requests
@@ -100,10 +104,11 @@ client.interceptors.response.use(
         setAccessToken(newToken);
 
         // Update the auth store with the new token (this will persist to localStorage)
-        const { useAuthStore } = await import("../stores/AuthStore");
-        useAuthStore.setState((state) => ({
+        const { useAuthStore: AuthStoreToUpdate } = await import("../stores/AuthStore");
+        AuthStoreToUpdate.setState((state) => ({
           ...state,
           token: newToken,
+          ...(responseData.refreshToken && { storedRefreshToken: responseData.refreshToken }),
         }));
 
         // Process queued requests

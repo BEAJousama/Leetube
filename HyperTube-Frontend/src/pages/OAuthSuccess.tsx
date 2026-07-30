@@ -25,11 +25,12 @@ const OAuthSuccess = () => {
         clearError();
 
         const token = searchParams.get("token");
+        const refreshToken = searchParams.get("refreshToken");
         const userDataStr = searchParams.get("userData");
 
         if (token && userDataStr) {
           const userData = JSON.parse(decodeURIComponent(userDataStr));
-          setAuthData(token, userData);
+          setAuthData(token, userData, refreshToken || undefined);
           setAccessToken(token);
         } else {
           // Let the store handle fetching the token/user from the backend as fallback

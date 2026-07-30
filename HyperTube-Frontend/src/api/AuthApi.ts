@@ -46,10 +46,12 @@ export interface BackendAuthResponse {
     updatedAt: string;
   };
   accessToken: string;
+  refreshToken: string;
 }
 
 export interface AuthResponse {
   token: string;
+  refreshToken?: string;
   user: User;
 }
 
@@ -80,7 +82,7 @@ export class AuthAPI {
       );
     }
 
-    const { user, accessToken } = backendResponse;
+    const { user, accessToken, refreshToken } = backendResponse;
 
     // Set token for future requests
     setAccessToken(accessToken);
@@ -103,6 +105,7 @@ export class AuthAPI {
     // Transform to our expected format
     const authData: AuthResponse = {
       token: accessToken,
+      refreshToken: refreshToken,
       user: transformedUser,
     };
 
@@ -120,7 +123,7 @@ export class AuthAPI {
       );
     }
 
-    const { user, accessToken } = backendResponse;
+    const { user, accessToken, refreshToken } = backendResponse;
 
     // Set token for future requests
     setAccessToken(accessToken);
@@ -143,6 +146,7 @@ export class AuthAPI {
     // Transform to our expected format
     const authData: AuthResponse = {
       token: accessToken,
+      refreshToken: refreshToken,
       user: transformedUser,
     };
 
@@ -156,11 +160,11 @@ export class AuthAPI {
   }
 
   // Refresh access token
-  static async refreshToken(): Promise<{ accessToken: string; user?: User }> {
+  static async refreshToken(currentRefreshToken?: string): Promise<{ accessToken: string; refreshToken?: string; user?: User }> {
     try {
       const response = await client.post(
         "/api/auth/refresh",
-        {},
+        { refreshToken: currentRefreshToken },
         {
           withCredentials: true,
           timeout: 10000, // 10 second timeout
@@ -171,6 +175,7 @@ export class AuthAPI {
 
       // Handle different possible response formats from backend
       const accessToken = responseData.accessToken || responseData.token;
+      const newRefreshToken = responseData.refreshToken;
       const user = responseData.user;
 
       if (!accessToken) {
@@ -183,6 +188,7 @@ export class AuthAPI {
       // Return standardized format
       return {
         accessToken,
+        refreshToken: newRefreshToken,
         user: user
           ? {
               id: user.id,

@@ -17,6 +17,7 @@ interface AuthState {
   // State
   user: User | null;
   token: string | null;
+  storedRefreshToken: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
@@ -34,7 +35,7 @@ interface AuthState {
   clearError: () => void;
   handleOAuthCallback: () => Promise<void>;
   setLoading: (loading: boolean) => void;
-  setAuthData: (user: User, token: string) => void;
+  setAuthData: (user: User, token: string, storedRefreshToken?: string) => void;
   setVerificationMessage: (
     type: "success" | "error" | "already-verified" | null,
     message?: string,
@@ -48,6 +49,7 @@ export const useAuthStore = create<AuthState>()(
       // Initial state
       user: null,
       token: null,
+      storedRefreshToken: null,
       accessToken: null,
       isAuthenticated: false,
       isLoading: false,
@@ -78,6 +80,7 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: null,
             token: null,
+            storedRefreshToken: null,
             isAuthenticated: false,
             isLoading: false,
             error: error.response?.data?.message || "Login failed",
@@ -109,6 +112,7 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: null,
             token: null,
+            storedRefreshToken: null,
             isAuthenticated: false,
             isLoading: false,
             error: error.response?.data?.message || "Registration failed",
@@ -129,6 +133,7 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: null,
             token: null,
+            storedRefreshToken: null,
             isAuthenticated: false,
             error: null,
           });
@@ -157,6 +162,7 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: null,
             token: null,
+            storedRefreshToken: null,
             isAuthenticated: false,
             isLoading: false,
             error: "Session expired",
@@ -168,13 +174,15 @@ export const useAuthStore = create<AuthState>()(
       refreshToken: async () => {
         try {
           set({ isLoading: true, error: null });
+          const currentRefreshToken = get().storedRefreshToken;
 
-          const response = await AuthAPI.refreshToken();
+          const response = await AuthAPI.refreshToken(currentRefreshToken || undefined);
 
           // Update the token in the store
           set((state: AuthState) => ({
             ...state,
             token: response.accessToken,
+            ...(response.refreshToken && { storedRefreshToken: response.refreshToken }),
             isLoading: false,
             error: null,
             // Update user if provided in refresh response
@@ -190,6 +198,7 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: null,
             token: null,
+            storedRefreshToken: null,
             isAuthenticated: false,
             isLoading: false,
             error: error.message || "Token refresh failed",
@@ -210,6 +219,7 @@ export const useAuthStore = create<AuthState>()(
             set({
               user: response.user,
               token: response.token || null,
+              storedRefreshToken: response.refreshToken || null,
               isAuthenticated: true,
               isLoading: false,
               error: null,
@@ -225,6 +235,7 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: null,
             token: null,
+            storedRefreshToken: null,
             isAuthenticated: false,
             isLoading: false,
             error: error.message || "OAuth authentication failed",
@@ -237,7 +248,7 @@ export const useAuthStore = create<AuthState>()(
 
       setLoading: (loading: boolean) => set({ isLoading: loading }),
 
-      setAuthData: (user: User, token: string) => {
+      setAuthData: (user: User, token: string, storedRefreshToken?: string) => {
         // Set token for API client
         setAccessToken(token);
 
@@ -245,6 +256,7 @@ export const useAuthStore = create<AuthState>()(
         set({
           user,
           token,
+          ...(storedRefreshToken && { storedRefreshToken }),
           isAuthenticated: true,
           isLoading: false,
           error: null,
@@ -280,6 +292,7 @@ export const useAuthStore = create<AuthState>()(
       partialize: (state) => ({
         user: state.user,
         token: state.token,
+        storedRefreshToken: state.storedRefreshToken,
         isAuthenticated: state.isAuthenticated,
       }),
       // Rehydration
@@ -315,7 +328,7 @@ export const useAuth = () => {
 };
 
 // Direct store access for OAuth callback
-export const setAuthData = (token: string, user: User) => {
+export const setAuthData = (token: string, user: User, storedRefreshToken?: string) => {
   useAuthStore.setState({
     user: {
       id: user.id,
@@ -330,6 +343,7 @@ export const setAuthData = (token: string, user: User) => {
       updatedAt: user.updatedAt,
     },
     token: token,
+    ...(storedRefreshToken && { storedRefreshToken }),
     isAuthenticated: true,
     isLoading: false,
     error: null,

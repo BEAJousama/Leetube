@@ -62,7 +62,8 @@ export class AuthController {
       res.status(201).json({
         message: 'User registered successfully',
         user: result.user,
-        accessToken: result.accessToken
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken
       });
     } catch (error: any) {
       if (error.message.includes('already exists') || error.message.includes('already taken')) {
@@ -102,7 +103,8 @@ export class AuthController {
       res.json({
         message: 'Login successful',
         user: result.user,
-        accessToken: result.accessToken
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken
       });
     } catch (error: any) {
       if (error.message.includes('Invalid email or password')) {
@@ -254,7 +256,8 @@ export class AuthController {
       
       res.json({
         message: 'Token refreshed successfully',
-        accessToken: tokens.accessToken
+        accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken
       });
     } catch (error) {
       next(error);
@@ -536,7 +539,8 @@ async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<v
         return;
       }
 
-      const token = oauthResult.token;
+      const token = oauthResult.token || oauthResult.accessToken;
+      const refreshToken = oauthResult.refreshToken;
       const userData = oauthResult.user;
       const isNewUser = oauthResult.isNewUser;
 
@@ -549,7 +553,7 @@ async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<v
       };
 
       const encodedUserData = encodeURIComponent(JSON.stringify(userData));
-      const redirectUrl = `${config.frontendUrl}/auth/success?provider=42&isNewUser=${isNewUser}&token=${token}&userData=${encodedUserData}`;
+      const redirectUrl = `${config.frontendUrl}/auth/success?provider=42&isNewUser=${isNewUser}&token=${token}&refreshToken=${refreshToken}&userData=${encodedUserData}`;
       return res.redirect(redirectUrl);
 
     } catch (error) {
@@ -583,7 +587,8 @@ async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<v
         return;
       }
 
-      const token = oauthResult.token;
+      const token = oauthResult.token || oauthResult.accessToken;
+      const refreshToken = oauthResult.refreshToken;
       const userData = oauthResult.user;
       const isNewUser = oauthResult.isNewUser;
 
@@ -596,7 +601,7 @@ async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<v
       };
 
       const encodedUserData = encodeURIComponent(JSON.stringify(userData));
-      const redirectUrl = `${config.frontendUrl}/auth/success?provider=google&isNewUser=${isNewUser}&token=${token}&userData=${encodedUserData}`;
+      const redirectUrl = `${config.frontendUrl}/auth/success?provider=google&isNewUser=${isNewUser}&token=${token}&refreshToken=${refreshToken}&userData=${encodedUserData}`;
       return res.redirect(redirectUrl);
 
     } catch (error) {
