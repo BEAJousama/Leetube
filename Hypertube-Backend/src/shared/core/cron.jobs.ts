@@ -6,11 +6,29 @@ import { MovieService } from "../../services/movie.service";
 import { TorrentService } from "../../services/torrent.service";
 import { AuthService } from "../../services/auth.service";
 
+import { config } from "../../config/environment";
+
 /**
  * Schedule cron jobs for various cleanup and maintenance tasks
  */
 export const scheduleCronJobs = () => {
   logger.info('Initializing cron jobs...');
+
+  // Keep-alive ping every 14 minutes to prevent Render free tier from spinning down
+  nodeCron.schedule("*/14 * * * *", async () => {
+    try {
+      logger.info("Running keep-alive ping to prevent spin down");
+      const url = `${config.baseUrl}/health`;
+      const response = await fetch(url);
+      if (response.ok) {
+        logger.info(`Keep-alive successful: ${response.status}`);
+      } else {
+        logger.warn(`Keep-alive returned non-ok status: ${response.status}`);
+      }
+    } catch (error: any) {
+      logger.error(`Error in keep-alive ping: ${error.message}`);
+    }
+  });
 
   // Cleanup expired refresh tokens every hour
   nodeCron.schedule("0 * * * *", async () => {

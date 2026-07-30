@@ -41,6 +41,8 @@ class App {
 
   constructor() {
     this.app = express();
+    // Trust the reverse proxy (Render) to correctly parse X-Forwarded-For headers
+    this.app.set('trust proxy', 1);
     this.port = config.port || 3000;
     this.initializeMiddlewares();
     this.initializeRoutes();
