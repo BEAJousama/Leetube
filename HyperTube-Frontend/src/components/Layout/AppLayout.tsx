@@ -26,7 +26,7 @@ export default function AppLayout({ children }: Props) {
     !isOpen && (trailerOpen || isConfirmationOpen) ? "z-[998]" : undefined;
 
   const [isScrolling, setIsScrolling] = useState(false);
-  const scrollTimeout = useRef<NodeJS.Timeout>();
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const scrollContainer = document.getElementById("app-scroll-container");
