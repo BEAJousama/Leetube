@@ -47,7 +47,7 @@ export class TorrentController {
     let engineEntry = engines[movieId];
 
     if (engineEntry === undefined) {
-      const engine = torrentStream(magnet, { path: moviePath });
+      const engine = torrentStream(magnet, { path: moviePath, tmp: basePath });
       try {
         const metadata: EngineMetadata = await new Promise((resolve, reject) => {
           engine.on("ready", () => {

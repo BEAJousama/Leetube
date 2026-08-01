@@ -1201,23 +1201,24 @@ export class MovieService implements IService {
   async cleanupOldDownloads(): Promise<void> {
     try {
       const fs = await import('fs');
-      const path = await import('path');
+      const { getDownloadsPath } = await import('../shared/utils/paths');
 
-      const downloadPath = path.join(process.cwd(), 'downloads');
+      const downloadPath = getDownloadsPath();
 
       if (!fs.existsSync(downloadPath)) {
         logger.info('Downloads directory does not exist, skipping cleanup');
         return;
       }
 
-      const oneHourAgo = new Date();
-      oneHourAgo.setHours(oneHourAgo.getHours() - 1);
+      const thirtyMinutesAgo = new Date();
+      thirtyMinutesAgo.setMinutes(thirtyMinutesAgo.getMinutes() - 30);
 
       const files = fs.readdirSync(downloadPath);
       let cleanedCount = 0;
 
       for (const file of files) {
-        const filePath = path.join(downloadPath, file);
+        const fsPath = await import('path');
+        const filePath = fsPath.join(downloadPath, file);
         // Assume file or directory name is the movieId
         const movieId = file;
         try {
@@ -1229,7 +1230,7 @@ export class MovieService implements IService {
           // Use lastAccessed from DB, fallback to file mtime if missing
           const lastAccessedRaw = movie.lastAccessed;
           const lastAccessed = typeof lastAccessedRaw === 'string' ? new Date(lastAccessedRaw) : lastAccessedRaw;
-          if (lastAccessed && lastAccessed < oneHourAgo) {
+          if (lastAccessed && lastAccessed < thirtyMinutesAgo) {
             if (fs.statSync(filePath).isDirectory()) {
               fs.rmSync(filePath, { recursive: true, force: true });
             } else {
