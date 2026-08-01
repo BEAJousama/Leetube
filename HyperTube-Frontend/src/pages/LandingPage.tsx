@@ -151,6 +151,15 @@ export default function LandingPage() {
               I already have an account
             </Link>
           </motion.div>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="text-white/40 text-sm mt-2 font-light"
+          >
+            This project was created for <span className="text-primary-100/80 font-medium">1337 coding school / 42 network</span> educational purposes.
+          </motion.p>
         </div>
       </header>
 
@@ -335,7 +344,15 @@ export default function LandingPage() {
         </Link>
       </motion.section>
 
-      {/* Footer was removed */}
+      {/* 7. Footer */}
+      <footer className="py-12 px-6 border-t border-white/[0.05] relative z-10 flex flex-col items-center justify-center text-center">
+        <p className="text-white/40 text-sm font-light mb-2">
+          This project was created for <span className="text-primary-100/80 font-medium">1337 coding school / 42 network</span> educational purposes.
+        </p>
+        <p className="text-white/30 text-xs font-light">
+          &copy; {new Date().getFullYear()} LeeTube. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
 }

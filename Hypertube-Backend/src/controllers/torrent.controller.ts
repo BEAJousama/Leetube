@@ -233,16 +233,30 @@ export class TorrentController {
     const chunkSize = end - start + 1;
 
     const isDownload = req.query.download === "true";
-    const headers: Record<string, string | number> = {
-      "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-      "Accept-Ranges": "bytes",
-      "Content-Length": chunkSize,
-      "Content-Type": "video/mp4",
-    };
-    if (isDownload) {
-      headers["Content-Disposition"] = `attachment; filename="${file.name || 'movie.mp4'}"`;
+    const safeFilename = (file.name || 'movie.mp4').replace(/"/g, '');
+    
+    if (rangeHeader) {
+      const headers: Record<string, string | number> = {
+        "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+        "Accept-Ranges": "bytes",
+        "Content-Length": chunkSize,
+        "Content-Type": "video/mp4",
+      };
+      if (isDownload) {
+        headers["Content-Disposition"] = `attachment; filename="${safeFilename}"`;
+      }
+      res.writeHead(206, headers);
+    } else {
+      const headers: Record<string, string | number> = {
+        "Accept-Ranges": "bytes",
+        "Content-Length": fileSize,
+        "Content-Type": "video/mp4",
+      };
+      if (isDownload) {
+        headers["Content-Disposition"] = `attachment; filename="${safeFilename}"`;
+      }
+      res.writeHead(200, headers);
     }
-    res.writeHead(206, headers);
 
     const stream = file.createReadStream({ start, end });
     
