@@ -321,21 +321,14 @@ export class TorrentController {
     }
     res.writeHead(200, headers);
 
-    // FFmpeg arguments for fast conversion
+    // FFmpeg arguments for low-memory remuxing
     const ffmpegArgs = [
       "-i", "pipe:0",                    // Input from stdin
       "-movflags", "frag_keyframe+empty_moov+faststart",
       "-f", "mp4",                       // Output format
-      "-preset", "ultrafast",            // Fastest preset
-      "-tune", "zerolatency",            // Zero latency
-      "-crf", "28",                      // Quality (23-28 range)
-      "-maxrate", "800k",                // Limit bitrate
-      "-bufsize", "1600k",
-      "-vf", "scale=854:480",            // Scale to 480p
-      "-r", "24",                        // 24 fps
-      "-c:v", "libx264",                 // H.264 video
-      "-c:a", "aac",                     // AAC audio
-      "-b:a", "96k",                     // Audio bitrate
+      "-c:v", "copy",                    // Copy video stream (NO TRANSCODING, VERY LOW MEMORY)
+      "-c:a", "aac",                     // AAC audio (supported by all devices)
+      "-b:a", "128k",                    // Audio bitrate
       "-ac", "2",                        // Stereo
       "-ar", "44100",                    // Audio sample rate
       "-avoid_negative_ts", "make_zero",
