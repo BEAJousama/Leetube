@@ -111,6 +111,7 @@ export interface MovieResponseDto {
   runtime?: number;
   genre: string[];
   director?: string;
+  directorImage?: string | null;
   cast?: any[];
   imdbId?: string;
   tmdbId?: number; // Changed to number to match Prisma schema

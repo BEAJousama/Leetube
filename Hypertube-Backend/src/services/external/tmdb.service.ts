@@ -100,6 +100,7 @@ export interface ExternalMovieData {
   runtime?: number;
   genres: string[];
   director?: string;
+  directorImage?: string | null;
   cast: any[];
   poster: string | null;
   backdrop: string | null;
@@ -310,11 +311,11 @@ export class TMDBService implements IService {
         }
       }
 
-      // Add cast filter
+      // Add cast filter (using with_people to match both cast and crew)
       if (cast) {
         const personId = await this.getPersonId(cast);
         if (personId) {
-          discoverParams.with_cast = personId;
+          discoverParams.with_people = personId;
         } else {
           // Log warning but continue search - don't fail completely
           logger.warn(`Cast member "${cast}" not found, continuing search without cast filter`);
@@ -721,7 +722,9 @@ export class TMDBService implements IService {
       }
     }
 
-    const director = credits?.crew.find(member => member.job === 'Director')?.name;
+    const directorMember = credits?.crew.find(member => member.job === 'Director');
+    const director = directorMember?.name;
+    const directorImage = directorMember ? this.getPersonImgUrl(directorMember.profile_path) : null;
     const cast = credits?.cast.slice(0, 10).map(member => ({ name: member.name, character: member.character, image: this.getPersonImgUrl(member.profile_path) })) || [];
     const releaseYear = new Date(tmdbMovie.release_date).getFullYear();
 
@@ -736,6 +739,7 @@ export class TMDBService implements IService {
       runtime: details?.runtime || undefined,
       genres: details?.genres.map(g => g.name) || [],
       director,
+      directorImage,
       cast,
       poster: this.getPosterUrl(tmdbMovie.poster_path),
       backdrop: this.getBackdropUrl(tmdbMovie.backdrop_path),

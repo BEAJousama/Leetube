@@ -35,6 +35,7 @@ interface Movie {
   runtime?: number;
   genres?: string[];
   director?: string;
+  directorImage?: string;
   cast?: string[];
   poster?: string;
   backdrop?: string;

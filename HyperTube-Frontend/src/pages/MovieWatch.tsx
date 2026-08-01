@@ -207,7 +207,7 @@ const MovieWatchPage = () => {
       <MovieOverview movie={mergedMovie as Movie} loading={isLoading} />
 
       {/* Cast Section */}
-      <CastSection cast={mergedMovie?.cast} loading={isLoading} />
+      <CastSection cast={mergedMovie?.cast} director={mergedMovie?.director} directorImage={mergedMovie?.directorImage} loading={isLoading} />
 
       {/* Comments Section */}
       <CommentsSection movieId={movieId} />

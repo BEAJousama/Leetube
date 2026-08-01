@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 interface CastSectionProps {
   cast?: any[];
+  director?: string;
+  directorImage?: string | null;
   loading?: boolean;
 }
 
-const CastSection = ({ cast, loading = false }: CastSectionProps) => {
+const CastSection = ({ cast, director, directorImage, loading = false }: CastSectionProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ const CastSection = ({ cast, loading = false }: CastSectionProps) => {
     );
   }
 
-  if (!cast || cast.length === 0) return null;
+  if ((!cast || cast.length === 0) && !director) return null;
   const searchActorMovies = (name: string) => {
     navigate(`/search?q=${name}&by=cast`);
   };
@@ -43,7 +45,30 @@ const CastSection = ({ cast, loading = false }: CastSectionProps) => {
         {t("MoviePage.cast")}
       </h2>
       <div className="flex flex-wrap gap-2 max-w-screen">
-        {cast.map((actor, index) => {
+        {director && (
+          <div
+            onClick={() => searchActorMovies(director)}
+            className="group relative flex flex-row gap-3 bg-white/5 rounded-lg p-2 w-[160px] sm:w-[200px] items-center flex-shrink-0 shadow-md shadow-black/20 cursor-pointer hover:bg-white/10 hover:scale-[1.02] transition-all"
+          >
+            <img
+              src={directorImage ? directorImage : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                director,
+              )}&background=ff2a2a90&color=ffffff&size=128&bold=true`}
+              alt={director}
+              loading="lazy"
+              className="w-10 h-10 rounded-full object-cover flex-shrink-0 ring-0 group-hover:ring-2 ring-secondary-100/50 transition-all"
+            />
+            <div className="flex flex-col items-start flex-1 min-w-0">
+              <p className="text-white text-sm font-medium truncate w-full text-left">
+                {director}
+              </p>
+              <p className="text-secondary-100/70 text-xs truncate w-full text-left mt-0.5">
+                Director
+              </p>
+            </div>
+          </div>
+        )}
+        {cast?.map((actor, index) => {
           const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
             actor.name,
           )}&background=08d9d690&color=ffffff&size=128&bold=true`;
